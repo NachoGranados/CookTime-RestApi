@@ -159,11 +159,9 @@ public class BinaryTree {
     }
     
     public void insert2(String email, String name, String lastName, int age, String password, String photo,
-                        ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
-        
-        String newPassword = encrypte(password);        
+                        ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {         
                 
-        User newUser = new User(email, name, lastName, age, newPassword, photo, myMenuList, followers, followed, chef);
+        User newUser = new User(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
         
         this.root = this.insertAux(newUser, this.root);
         

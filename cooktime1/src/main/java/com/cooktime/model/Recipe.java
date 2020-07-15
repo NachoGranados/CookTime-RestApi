@@ -181,7 +181,7 @@ public class Recipe {
         
     }
 
-    public float getCalification() {
+    public int getCalification() {
         
         return calification;
         

@@ -78,23 +78,98 @@ public class Services {
       
     }  
         
-        @POST
+    @POST
     @Path("/postChef/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postChef(@QueryParam("email") String email) throws
                              JSONException, IOException, ParseException {
                                
-        if (!binaryTree.contains(email)) {   
+        if (binaryTree.contains(email)) {   
             
             UserJson.insertChef(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email)).build();                          
-                                                
+                                              
         }
         
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
     } 
+    
+    @POST
+    @Path("/postMyMenuList/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postMyMenuList(@QueryParam("email") String email,
+                                   @QueryParam("myMenuList") String myMenuList)
+                                   throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(myMenuList);
+
+            JSONArray myMenuListJson = (JSONArray) object;
+
+            UserJson.insertMyMenuList(email, myMenuListJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postFollowers/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postFollowers(@QueryParam("email") String email,
+                                  @QueryParam("followers") String followers)
+                                  throws JSONException, IOException, ParseException {
+                               
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(followers);
+
+            JSONArray followersJson = (JSONArray) object;
+
+            UserJson.insertFollowers(email, followersJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowers()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postFollowed/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postFollowed(@QueryParam("email") String email,
+                                 @QueryParam("followed") String followed)
+                                 throws JSONException, IOException, ParseException {
+                               
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(followed);
+
+            JSONArray followedJson = (JSONArray) object;
+
+            UserJson.insertFollowed(email, followedJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowed()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
     
     @GET
     @Path("/getAllRecipes/")

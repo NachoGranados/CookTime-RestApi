@@ -3,11 +3,15 @@ package com.serverinterface.java;
 import com.devazt.networking.HttpClient;
 import com.devazt.networking.OnHttpRequestComplete;
 import com.devazt.networking.Response;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 public class ServerWindow extends javax.swing.JFrame {
 
@@ -267,6 +271,10 @@ public class ServerWindow extends javax.swing.JFrame {
                     try {
                         
                         JSONArray jsonFile = (JSONArray) parser.parse(status.getResult());
+                        
+                        DefaultTableModel model = (DefaultTableModel) tableRecipes.getModel();
+                        
+                        model.setRowCount(0);
                                                                         
                         for (int i = 0; i < jsonFile.size(); i ++) {
                                                     
@@ -281,8 +289,6 @@ public class ServerWindow extends javax.swing.JFrame {
                     }
                     
                 }
-                
-                throw new UnsupportedOperationException("Not supported yet.");
                 
             }
             
@@ -306,6 +312,10 @@ public class ServerWindow extends javax.swing.JFrame {
                     try {
                         
                         JSONArray jsonFile = (JSONArray) parser.parse(status.getResult());
+                        
+                        DefaultTableModel model = (DefaultTableModel) tableEnterprises.getModel();
+                        
+                        model.setRowCount(0);
                                                                         
                         for (int i = 0; i < jsonFile.size(); i ++) {
                                                     
@@ -320,9 +330,7 @@ public class ServerWindow extends javax.swing.JFrame {
                     }
                     
                 }
-                
-                throw new UnsupportedOperationException("Not supported yet.");
-                
+                                
             }
             
         });
@@ -332,7 +340,7 @@ public class ServerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnterprisesActionPerformed
 
     private void btnUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsersActionPerformed
-
+        
         HttpClient httpClient = new HttpClient(new OnHttpRequestComplete() {
 
             @Override
@@ -345,6 +353,10 @@ public class ServerWindow extends javax.swing.JFrame {
                     try {
 
                         JSONArray jsonFile = (JSONArray) parser.parse(status.getResult());
+                        
+                        DefaultTableModel model = (DefaultTableModel) tableUsers.getModel();
+                        
+                        model.setRowCount(0);
 
                         for (int i = 0; i < jsonFile.size(); i ++) {
 
@@ -360,8 +372,6 @@ public class ServerWindow extends javax.swing.JFrame {
 
                 }
 
-                throw new UnsupportedOperationException("Not supported yet.");
-
             }
 
         });
@@ -371,31 +381,23 @@ public class ServerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsersActionPerformed
 
     private void btnAssignChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignChefActionPerformed
-                
+        
         String email = JOptionPane.showInputDialog(null, "Insert user's email", "Assign New User", HEIGHT);
+                
+        String url = "http://localhost:8080/cooktime1/api/services/postChef/";
+                
+        Client client = Client.create();
+        WebResource target = client.resource(url);
         
-        String url = "http://localhost:8080/cooktime1/api/services/postChef?email=" + email;
-        
-        // post al api
-        
-        HttpClient httpClient = new HttpClient(new OnHttpRequestComplete() {
-
-            @Override
-            public void onComplete(Response status) {
-
-            }
-
-        });
-
-        httpClient.excecute(url);
-        
+        ClientResponse response = target.queryParam("email", email).accept("application/json")
+                      .type("application/json").post(ClientResponse.class, email);
         
     }//GEN-LAST:event_btnAssignChefActionPerformed
     
     private void addRowUser(JSONObject object, int number) {
-        
+                                
         DefaultTableModel model = (DefaultTableModel) tableUsers.getModel();
-
+        
         Object rowData[] = new Object[11];
 
         rowData[0] = number;
@@ -441,7 +443,7 @@ public class ServerWindow extends javax.swing.JFrame {
     }
     
     private void addRowEnterprise(JSONObject object, int number) {
-        
+                
         DefaultTableModel model = (DefaultTableModel) tableEnterprises.getModel();
 
         Object rowData[] = new Object[6];
@@ -470,7 +472,7 @@ public class ServerWindow extends javax.swing.JFrame {
         });
         
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignChef;
     private javax.swing.JButton btnEnterprises;
