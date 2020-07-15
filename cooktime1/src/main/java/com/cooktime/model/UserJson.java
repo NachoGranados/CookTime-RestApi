@@ -15,14 +15,9 @@ public class UserJson {
     private static AVLTree avlTree = RecipeJson.getAVLTree();
     
     public static void insert(String email, String name, String lastName, int age, String password, String photo,
-                              JSONArray myMenuList, JSONArray followers, JSONArray followed, boolean chef)
-                              throws JSONException, IOException {
+                               boolean chef) throws JSONException, IOException {
         
-        ArrayList<Recipe> newMyMenuList = createRecipeList(myMenuList);
-        ArrayList<String> newFollowers = createStringList(followers);
-        ArrayList<String> newFollowed = createStringList(followed);
-        
-        binaryTree.insert(email, name, lastName, age, password, photo, newMyMenuList, followers, followed, chef);
+        binaryTree.insert1(email, name, lastName, age, password, photo, chef);
         
         JSONObject newUser = new JSONObject();
     
@@ -32,9 +27,9 @@ public class UserJson {
         newUser.put("age", age);
         newUser.put("password", password);        
         newUser.put("photo", photo);        
-        newUser.put("myMenuList", newMyMenuList);
-        newUser.put("followers", followers);
-        newUser.put("followed", followed);
+        newUser.put("myMenuList", null);
+        newUser.put("followers", null);
+        newUser.put("followed", null);
         newUser.put("chef", chef);
                 
         JSONParser parser = new JSONParser();
@@ -103,7 +98,7 @@ public class UserJson {
         
         binaryTree.remove(email);
         
-        binaryTree.insert(email, name, lastName, age, password, photo, myMenuList, followers, followed, true);
+        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, true);
 
         JSONParser parser = new JSONParser();
 

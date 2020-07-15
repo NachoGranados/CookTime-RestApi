@@ -6,11 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Base64;
 
 public class BinaryTree {
     
@@ -153,8 +148,18 @@ public class BinaryTree {
         
     }
        
-    public void insert(String email, String name, String lastName, int age, String password, String photo,
-                       ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
+    public void insert1(String email, String name, String lastName, int age, String password, String photo, boolean chef) {
+        
+        String newPassword = encrypte(password);        
+                
+        User newUser = new User(email, name, lastName, age, newPassword, photo, chef);
+        
+        this.root = this.insertAux(newUser, this.root);
+        
+    }
+    
+    public void insert2(String email, String name, String lastName, int age, String password, String photo,
+                        ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
         String newPassword = encrypte(password);        
                 
@@ -296,25 +301,4 @@ public class BinaryTree {
 
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

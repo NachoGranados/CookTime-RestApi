@@ -30,6 +30,8 @@ public class RecipeJson {
         newRecipe.put("ingredients", ingredients);
         newRecipe.put("steps", steps);
         newRecipe.put("price", price);
+        newRecipe.put("calification", calification);
+        newRecipe.put("publication", publication);
 
         JSONParser parser = new JSONParser();
 

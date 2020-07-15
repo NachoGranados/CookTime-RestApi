@@ -63,27 +63,12 @@ public class Services {
                              @QueryParam("age") int age,
                              @QueryParam("password") String password,
                              @QueryParam("photo") String photo,
-                             @QueryParam("myMenuList") String myMenuList,
-                             @QueryParam("followers") String followers,
-                             @QueryParam("followed") String followed,
                              @QueryParam("chef") boolean chef) throws
                              JSONException, IOException, ParseException {
                                
-        if (!binaryTree.contains(email)) {   
-            
-            JSONParser parser = new JSONParser();
-
-            JSONObject json1 = (JSONObject) parser.parse(myMenuList);
-            JSONObject json2 = (JSONObject) parser.parse(followers);
-            JSONObject json3 = (JSONObject) parser.parse(followed);
-
-            JSONArray jSONArray1 = (JSONArray) json1.get("list");
-            JSONArray jSONArray2 = (JSONArray) json2.get("list");
-            JSONArray jSONArray3 = (JSONArray) json3.get("list"); 
-
-            
+        if (!binaryTree.contains(email)) {               
                         
-            UserJson.insert(email, name, lastName, age, password, photo, jSONArray1, jSONArray2, jSONArray3, chef);
+            UserJson.insert(email, name, lastName, age, password, photo, chef);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email)).build();                          
                                                 

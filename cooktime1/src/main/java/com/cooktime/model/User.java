@@ -1,7 +1,6 @@
 package com.cooktime.model;
 
 import java.util.ArrayList;
-import org.json.simple.JSONArray;
 
 public class User {
     
@@ -11,10 +10,10 @@ public class User {
     private int age;
     private String password;
     private String photo;
-    private ArrayList<Recipe> myMenuList;
-    private String lastSort = null;
-    private ArrayList<String> followers;
-    private ArrayList<String> followed;
+    private ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
+    private String lastSort = "BubbleSort";
+    private ArrayList<String> followers = new ArrayList<String>();
+    private ArrayList<String> followed = new ArrayList<String>();
     private boolean chef;
         
     public User(String email) {
@@ -23,6 +22,19 @@ public class User {
         
     }
 
+    public User(String email, String name, String lastName, int age, String password,
+                String photo, boolean chef) {
+        
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.password = password;
+        this.photo = photo;
+        this.chef = chef;
+        
+    }
+    
     public User(String email, String name, String lastName, int age, String password, String photo,
                 ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
@@ -117,9 +129,21 @@ public class User {
         
     }
 
-    public void setMyMenuList(JSONArray myMenuList) {
+    public void setMyMenuList(ArrayList<Recipe> myMenuList) {
         
         this.myMenuList = myMenuList;
+        
+    }
+
+    public String getLastSort() {
+        
+        return lastSort;
+        
+    }
+
+    public void setLastSort(String lastSort) {
+        
+        this.lastSort = lastSort;
         
     }
 
@@ -129,7 +153,7 @@ public class User {
         
     }
 
-    public void setFollowers(JSONArray followers) {
+    public void setFollowers(ArrayList<String> followers) {
         
         this.followers = followers;
         
@@ -141,7 +165,7 @@ public class User {
         
     }
 
-    public void setFollowed(JSONArray followed) {
+    public void setFollowed(ArrayList<String> followed) {
         
         this.followed = followed;
         
@@ -156,18 +180,6 @@ public class User {
     public void setChef(boolean chef) {
         
         this.chef = chef;
-        
-    }   
-
-    public String getLastSort() {
-        
-        return lastSort;
-        
-    }
-
-    public void setLastSort(String lastSort) {
-        
-        this.lastSort = lastSort;
         
     }
     
