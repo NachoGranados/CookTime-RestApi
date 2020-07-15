@@ -4,17 +4,17 @@ public class Enterprise {
     
     private String name;
     private String logo;
-    private String conctact;
+    private String contact;
     private String schedule;
     
     // RestApi de Google Maps
     private String direction;
 
-    public Enterprise(String name, String logo, String conctact, String schedule, String direction) {
+    public Enterprise(String name, String logo, String contact, String schedule, String direction) {
         
         this.name = name;
         this.logo = logo;
-        this.conctact = conctact;
+        this.contact = contact;
         this.schedule = schedule;
         this.direction = direction;
         
@@ -44,15 +44,15 @@ public class Enterprise {
         
     }
 
-    public String getConctact() {
+    public String getContact() {
         
-        return conctact;
+        return contact;
         
     }
 
-    public void setConctact(String conctact) {
+    public void setContact(String contact) {
         
-        this.conctact = conctact;
+        this.contact = contact;
         
     }
 

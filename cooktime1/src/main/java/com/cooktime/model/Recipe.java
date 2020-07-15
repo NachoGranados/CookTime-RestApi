@@ -14,12 +14,12 @@ public class Recipe {
     private String ingredients;
     private String steps;
     private int price;
-    private float calification;
+    private int calification;
     private int publication;
 
     public Recipe(String name, String author, String type, int portions, int duration,
                   String time, int difficulty, String dietTag, String photo, String ingredients,
-                  String steps, int price, float calification, int publication) {
+                  String steps, int price, int calification, int publication) {
         
         this.name = name;
         this.author = author;
@@ -187,7 +187,7 @@ public class Recipe {
         
     }
 
-    public void setCalification(float calification) {
+    public void setCalification(int calification) {
         
         this.calification = calification;
         

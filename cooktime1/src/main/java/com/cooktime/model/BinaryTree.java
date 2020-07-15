@@ -150,12 +150,12 @@ public class BinaryTree {
         
     }
        
-    public void insert(String email, String name, String lastName, int age, String password,
-                       String photo, boolean chef) {
+    public void insert(String email, String name, String lastName, int age, String password, String photo,
+                       ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
         String newPassword = encrypte("password", password);        
                 
-        User newUser = new User(email, name, lastName, age, newPassword, photo, chef);
+        User newUser = new User(email, name, lastName, age, newPassword, photo, myMenuList, followers, followed, chef);
         
         this.root = this.insertAux(newUser, this.root);
         
@@ -224,7 +224,7 @@ public class BinaryTree {
         
     }
     
-    public ArrayList inOrder() {
+    public ArrayList<User> inOrder() {
         
         this.userList.clear();
         
@@ -232,7 +232,7 @@ public class BinaryTree {
       
     }
     
-    private ArrayList inOrderAux(ArrayList userList, NodeBinaryTree node) {
+    private ArrayList<User> inOrderAux(ArrayList<User> userList, NodeBinaryTree node) {
         
       if (node == null) {
           

@@ -1,10 +1,12 @@
 package com.cooktime.model;
 
 import com.cooktime.model.Recipe;
+import java.util.ArrayList;
   
 public class AVLTree { 
     
-    public NodeAVLTree root;
+    private NodeAVLTree root;
+    private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
     
     public boolean contains(String name) {
         
@@ -128,7 +130,7 @@ public class AVLTree {
     
     public void insert(String name, String author, String type, int portions, int duration,
                        String time, int difficulty, String dietTag, String photo, String ingredients,
-                       String steps, int price, float calification, int publication) {
+                       String steps, int price, int calification, int publication) {
 
         Recipe recipe = new Recipe(name, author, type, portions, duration, time, difficulty, dietTag,
                                    photo, ingredients, steps, price, calification, publication);
@@ -324,40 +326,29 @@ public class AVLTree {
         return node;  
         
     } 
-         
-    public void preOrder(NodeAVLTree node) {  
         
-        if (node != null) {  
-            
-            System.out.print(node.getRecipe().getName());
-            System.out.println("");
-            preOrder(node.getLeft());  
-            preOrder(node.getRight());  
-            
-        }  
-        
-    }  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
+    public ArrayList<Recipe> inOrder() {
+
+        this.recipeList.clear();
+
+        return this.inOrderAux(recipeList, this.root);
+
+    }
+
+    private ArrayList<Recipe> inOrderAux(ArrayList<Recipe> recipeList, NodeAVLTree node) {
+
+        if (node == null) {
+
+            return null;
+
+        }
+
+        inOrderAux(recipeList, node.getLeft());
+        recipeList.add(node.getRecipe());
+        inOrderAux(recipeList, node.getRight());
+
+        return recipeList;
+
+    }
+
 }  

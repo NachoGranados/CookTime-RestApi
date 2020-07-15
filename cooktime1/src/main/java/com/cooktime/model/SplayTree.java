@@ -1,8 +1,11 @@
 package com.cooktime.model;
 
+import java.util.ArrayList;
+
 public class SplayTree {
 
     private NodeSplayTree root;
+    private ArrayList<Enterprise> recipeList = new ArrayList<Enterprise>();
     private int count = 0;
 
     public SplayTree() {
@@ -293,7 +296,9 @@ public class SplayTree {
         count ++;
         
     }
-        
+    
+    
+    /*
     public void inorder() {
         
         inorder(this.root);
@@ -312,5 +317,31 @@ public class SplayTree {
         }
         
     }
+
+    */
     
+    public ArrayList<Enterprise> inOrder() {
+
+        this.recipeList.clear();
+
+        return this.inOrderAux(recipeList, this.root);
+
+    }
+
+    private ArrayList<Enterprise> inOrderAux(ArrayList<Enterprise> recipeList, NodeSplayTree node) {
+
+        if (node == null) {
+
+            return null;
+
+        }
+
+        inOrderAux(recipeList, node.getLeft());
+        recipeList.add(node.getEnterprise());
+        inOrderAux(recipeList, node.getRight());
+
+        return recipeList;
+
+    }
+
 }

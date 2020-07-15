@@ -12,7 +12,7 @@ public class RecipeJson {
 
     public static void insert(String name, String author, String type, int portions, int duration,
                               String time, int difficulty, String dietTag, String photo, String ingredients,
-                              String steps, int price, float calification, int publication) {
+                              String steps, int price, int calification, int publication) {
 
         aVLTree.insert(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
                        steps, price, calification, publication);

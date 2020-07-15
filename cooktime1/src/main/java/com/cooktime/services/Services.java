@@ -18,6 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 @Path("services")
 public class Services {
@@ -26,11 +30,10 @@ public class Services {
     private AVLTree avltree = RecipeJson.getAVLTree();
     private SplayTree splayTree = EnterpriseJson.getSplayTree();
     
-    // Es solo para pruebas, luego se elimina
     @GET
-    @Path("/getTodos/")
+    @Path("/getAllUsers/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsers() throws JSONException, IOException {
+    public Response getAllUsers() throws JSONException, IOException {
                                 
         return Response.ok(binaryTree.inOrder()).build();
         
@@ -60,12 +63,27 @@ public class Services {
                              @QueryParam("age") int age,
                              @QueryParam("password") String password,
                              @QueryParam("photo") String photo,
-                             @QueryParam("chef") boolean chef)    
-                             throws JSONException, IOException {
+                             @QueryParam("myMenuList") String myMenuList,
+                             @QueryParam("followers") String followers,
+                             @QueryParam("followed") String followed,
+                             @QueryParam("chef") boolean chef) throws
+                             JSONException, IOException, ParseException {
                                
-        if (!binaryTree.contains(email)) {
+        if (!binaryTree.contains(email)) {   
             
-            UserJson.insert(email, name, lastName, age, password, photo, true);
+            JSONParser parser = new JSONParser();
+
+            JSONObject json1 = (JSONObject) parser.parse(myMenuList);
+            JSONObject json2 = (JSONObject) parser.parse(followers);
+            JSONObject json3 = (JSONObject) parser.parse(followed);
+
+            JSONArray jSONArray1 = (JSONArray) json1.get("list");
+            JSONArray jSONArray2 = (JSONArray) json2.get("list");
+            JSONArray jSONArray3 = (JSONArray) json3.get("list"); 
+
+            
+                        
+            UserJson.insert(email, name, lastName, age, password, photo, jSONArray1, jSONArray2, jSONArray3, chef);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email)).build();                          
                                                 
@@ -74,7 +92,34 @@ public class Services {
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
     }  
+        
+        @POST
+    @Path("/postChef/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postChef(@QueryParam("email") String email) throws
+                             JSONException, IOException, ParseException {
+                               
+        if (!binaryTree.contains(email)) {   
+            
+            UserJson.insertChef(email);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email)).build();                          
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    } 
     
+    @GET
+    @Path("/getAllRecipes/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllRecipes() throws JSONException, IOException {
+                                
+        return Response.ok(avltree.inOrder()).build();
+        
+    } 
+      
     @GET
     @Path("/getRecipe/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -122,7 +167,7 @@ public class Services {
                                @QueryParam("ingredients") String ingredients,
                                @QueryParam("steps") String steps,
                                @QueryParam("price") int price,
-                               @QueryParam("calification") float calification,
+                               @QueryParam("calification") int calification,
                                @QueryParam("publication") int publication)                               
                                throws JSONException, IOException {
           
@@ -140,6 +185,15 @@ public class Services {
       
     }
  
+    @GET
+    @Path("/getAllEnterprises/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllEnterprises() throws JSONException, IOException {
+                                
+        return Response.ok(splayTree.inOrder()).build();
+        
+    } 
+    
     @GET
     @Path("/getEnterprise/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -175,30 +229,22 @@ public class Services {
         
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
+    }     
+
+    @POST    
+    @Path("/postPrueba/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postJson(@QueryParam("list") String list) throws ParseException {
+        
+        
+        JSONParser parser = new JSONParser();
+        
+        JSONObject json = (JSONObject) parser.parse(list);
+        
+        JSONArray jSONArray = (JSONArray) json.get("list");
+
+        return Response.status(Response.Status.CREATED).entity(jSONArray).build();
+      
     }  
-            
+        
 }
-
-
-
-
-    /*
-    
-    @DELETE
-    @Path("/delete/{email}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response removeUser(@PathParam("email") String email) throws JSONException, IOException {
-        
-        if (binaryTree.contains(email)) {
-            
-            binaryTree.remove(email);
-            
-            return Response.ok().build();                              
-                                                
-        }
-        
-        return Response.status(Response.Status.NOT_FOUND).build();
-        
-    }
-
-    */    

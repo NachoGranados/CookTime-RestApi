@@ -1,5 +1,8 @@
 package com.cooktime.model;
 
+import java.util.ArrayList;
+import org.json.simple.JSONArray;
+
 public class User {
     
     private String email;
@@ -8,9 +11,10 @@ public class User {
     private int age;
     private String password;
     private String photo;
-    //private String[] myMenuList;
-    //private String[] followers;
-    //private String[] followed;
+    private ArrayList<Recipe> myMenuList;
+    private String lastSort = null;
+    private ArrayList<String> followers;
+    private ArrayList<String> followed;
     private boolean chef;
         
     public User(String email) {
@@ -19,8 +23,8 @@ public class User {
         
     }
 
-    public User(String email, String name, String lastName, int age, String password,
-                String photo, boolean chef) {
+    public User(String email, String name, String lastName, int age, String password, String photo,
+                ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
         this.email = email;
         this.name = name;
@@ -28,9 +32,9 @@ public class User {
         this.age = age;
         this.password = password;
         this.photo = photo;
-        //this.myMenuList = myMenuList;
-        //this.followers = followers;
-        //this.followed = followed;
+        this.myMenuList = myMenuList;
+        this.followers = followers;
+        this.followed = followed;
         this.chef = chef;
         
     }
@@ -107,47 +111,43 @@ public class User {
         
     }
 
-    /*
-    
-    public String[] getMyMenuList() {
+    public ArrayList<Recipe> getMyMenuList() {
         
         return myMenuList;
         
     }
-    
-    public void setMyMenuList(String[] myMenuList) {
+
+    public void setMyMenuList(JSONArray myMenuList) {
         
         this.myMenuList = myMenuList;
         
     }
 
-    public String[] getFollowers() {
+    public ArrayList<String> getFollowers() {
         
         return followers;
         
     }
 
-    public void setFollowers(String[] followers) {
+    public void setFollowers(JSONArray followers) {
         
         this.followers = followers;
         
     }
 
-    public String[] getFollowed() {
+    public ArrayList<String> getFollowed() {
         
         return followed;
         
     }
 
-    public void setFollowed(String[] followed) {
+    public void setFollowed(JSONArray followed) {
         
         this.followed = followed;
         
     }
 
-    */
-
-    public boolean isChef() {
+    public boolean getChef() {
         
         return chef;
         
@@ -157,8 +157,20 @@ public class User {
         
         this.chef = chef;
         
+    }   
+
+    public String getLastSort() {
+        
+        return lastSort;
+        
     }
 
+    public void setLastSort(String lastSort) {
+        
+        this.lastSort = lastSort;
+        
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
