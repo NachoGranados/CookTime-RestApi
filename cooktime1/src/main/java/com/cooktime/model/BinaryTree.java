@@ -1,8 +1,11 @@
 package com.cooktime.model;
 
 import com.cooktime.model.NodeBinaryTree;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -153,7 +156,7 @@ public class BinaryTree {
     public void insert(String email, String name, String lastName, int age, String password, String photo,
                        ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
-        String newPassword = encrypte("password", password);        
+        String newPassword = encrypte(password);        
                 
         User newUser = new User(email, name, lastName, age, newPassword, photo, myMenuList, followers, followed, chef);
         
@@ -247,30 +250,71 @@ public class BinaryTree {
       return userList;
       
     }
+    
+    public String encrypte(String password) {
         
-    public String encrypte(String secretKey, String password) {
+        Charset UTF_8 = StandardCharsets.UTF_8;
         
-        String encryptedPassword = "";
+        byte[] md5InBytes = digest(password.getBytes(UTF_8));
         
-        try {
-            
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            byte[] keyPassword = md5.digest(secretKey.getBytes("utf-8"));
-            byte[] BytesKey = Arrays.copyOf(keyPassword, 24);
-            SecretKey key = new SecretKeySpec(BytesKey, "DESede");
-            Cipher cipher = Cipher.getInstance("DESede");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] plainTextBytes = password.getBytes("utf-8");
-            byte[] buf = cipher.doFinal(plainTextBytes);
-            byte[] base64Bytes = Base64.encodeBase64(buf);
-            encryptedPassword = new String(base64Bytes);
-            
-        } catch (Exception ex) {
-            
-        }
+        String encryptedPassword = bytesToHex(md5InBytes);
         
         return encryptedPassword;
         
     }
+    
+    private byte[] digest(byte[] input) {
+
+        MessageDigest md;
+
+        try {
+
+            md = MessageDigest.getInstance("MD5");
+
+        } catch (NoSuchAlgorithmException e) {
+
+            throw new IllegalArgumentException(e);
+
+        }
+
+        byte[] result = md.digest(input);
+        return result;
+
+    }
+
+    private String bytesToHex(byte[] bytes) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (byte b : bytes) {
+
+            sb.append(String.format("%02x", b));
+
+        }
+
+        return sb.toString();
+
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
