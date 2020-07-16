@@ -4,97 +4,29 @@ import java.util.ArrayList;
 
 public class RadixSort {
     
-    public static ArrayList<Recipe> sortedList = new ArrayList<Recipe>();
-          
-    public void sort(ArrayList<Recipe> array, int size) {
+    private static ArrayList<Integer> sortedList = new ArrayList<Integer>();
+    
+    public ArrayList<Recipe> sort(ArrayList<Recipe> array, int size) {
         
-        for (int j = 0; j < size; j ++) {
+        sortAux(array, size);               
+        
+        ArrayList<Recipe> finalList = new ArrayList<Recipe>();
+        
+        for (int i = 0; i < size; i ++) {
             
-            sortedList.add(array.get(j));
+            finalList.add(getRecipe(array, RadixSort.sortedList.get(i)));
             
         }
         
-        int max = getMax(array, size);
-        
-        for (int i = 1; max / i > 0; i *= 10) {
-            
-            count(array, size, i);
-            
-        }
+        return finalList;
         
     }
     
-    public void count(ArrayList<Recipe> array, int size, int exp) {
-        
-        int output[] = new int[size];
-        int count[] = new int[10];
-        
-        Recipe aux;
-        
-        for (int i = 0; i < size; i ++) {
-            
-            count[(array.get(i).getDifficulty() / exp) % 10] ++;
-            
-        }
-        
-        for (int i = 1; i < 10; i ++) {
-            
-            count[i] += count[i - 1];
-            
-        }
-        
-        for (int i = size - 1; i >= 0; i --) {         
-                                    
-            output[count[(array.get(i).getDifficulty() / exp) % 10] - 1] = array.get(i).getDifficulty();
-            count[(array.get(i).getDifficulty() / exp) % 10] --;
-            
-            System.out.println(output[i]);
-            
-        }
-        
-        System.out.println("");
-        
-        for (int i = 0; i < size; i ++) {
-            
-            System.out.println("output " + output[i]);
-                
-            
-            aux = getRecipe(array, output[i]);            
-            sortedList.set(i, aux);
-            
-            /*
-            
-            
-            aux = array.get(i);
-            aux.setDifficulty(output[i]);
-            
-            System.out.println(output[i]);
-            
-            //array.set(i, aux)
-            
-            
-            
-            //System.out.println(output[i]);
-            
-            /*
-            
-            array.set(i, getRecipe(array, output[i]));
-            
-            System.out.println(output[i]);
-
-            */
-                        
-        }
-        
-        System.out.println("");
-                
-    }
-        
-    public int getMax(ArrayList<Recipe> array, int size) {
+    private int getMax(ArrayList<Recipe> array, int size) {
         
         int max = array.get(0).getDifficulty();
         
-        for (int i = 0; i < size; i ++) {
+        for (int i = 1; i < size; i ++) {
             
             if (array.get(i).getDifficulty() > max) {
                 
@@ -107,7 +39,65 @@ public class RadixSort {
         return max;
                 
     }
-    
+
+    public void sortAux(ArrayList<Recipe> array, int size) {
+        
+        for (int j = 0; j < size; j ++) {
+            
+            sortedList.add(0);
+            
+        }
+        
+        int max = getMax(array, size); 
+  
+        for (int exp = 1; max /exp > 0; exp *= 10) {
+            
+            countSort(array, size, exp);
+            
+        }
+             
+    } 
+   
+    private void countSort(ArrayList<Recipe> array, int size, int exp) {
+        
+        int output[] = new int[size];
+        int count[] = new int[10]; 
+        //Arrays.fill(count,0); 
+  
+        for (int i = 0; i < size; i ++) {
+            
+            count[(array.get(i).getDifficulty() / exp) % 10] ++;
+                        
+        }
+  
+        for (int i = 1; i < 10; i++) {
+            
+            count[i] += count[i - 1];
+            
+        }
+  
+        for (int i = size - 1; i >= 0; i --) { 
+            
+            output[count[ (array.get(i).getDifficulty() / exp) % 10] - 1 ] = array.get(i).getDifficulty();
+            count[ (array.get(i).getDifficulty() / exp) % 10 ] --;
+                        
+        } 
+  
+        for (int i = 0; i < size; i++) {
+            
+            //System.out.println("element " + output[i]);
+            
+            //sortedList.set(i, getRecipe(array, output[i]));
+            
+            //Recipe aux = array.get(i);
+            //aux.setDifficulty(output[i]);
+            
+            sortedList.set(i, output[i]);
+                        
+        }
+        
+    } 
+  
     private Recipe getRecipe(ArrayList<Recipe> array, int difficulty) {
                 
         for (int i = 0; i < array.size(); i ++){
@@ -125,3 +115,4 @@ public class RadixSort {
     }
           
 }
+    

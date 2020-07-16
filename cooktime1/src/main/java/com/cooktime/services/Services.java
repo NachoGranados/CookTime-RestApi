@@ -122,6 +122,81 @@ public class Services {
     }
     
     @POST
+    @Path("/postBubbleSort/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postBubbleSort(@QueryParam("email") String email,
+                                   @QueryParam("myMenuList") String myMenuList)
+                                   throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(myMenuList);
+
+            JSONArray myMenuListJson = (JSONArray) object;
+
+            UserJson.insertMyMenuList(email, myMenuListJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postQuickSort/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postQuickSort(@QueryParam("email") String email,
+                                   @QueryParam("myMenuList") String myMenuList)
+                                   throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(myMenuList);
+
+            JSONArray myMenuListJson = (JSONArray) object;
+
+            UserJson.insertMyMenuList(email, myMenuListJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postRadixSort/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postRadixSort(@QueryParam("email") String email,
+                                   @QueryParam("myMenuList") String myMenuList)
+                                   throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+            
+            JSONParser parser = new JSONParser();
+            
+            Object object = parser.parse(myMenuList);
+
+            JSONArray myMenuListJson = (JSONArray) object;
+
+            UserJson.insertMyMenuList(email, myMenuListJson);
+            
+            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
     @Path("/postFollowers/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postFollowers(@QueryParam("email") String email,

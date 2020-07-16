@@ -38,6 +38,10 @@ public class User {
     public User(String email, String name, String lastName, int age, String password, String photo,
                 ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
         
+        BubbleSort bubbleSort = new BubbleSort();
+        
+        bubbleSort.sort(myMenuList);
+                
         this.email = email;
         this.name = name;
         this.lastName = lastName;
