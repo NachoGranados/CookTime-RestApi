@@ -60,15 +60,17 @@ public class Services {
     public Response postUser(@QueryParam("email") String email,
                              @QueryParam("name") String name,
                              @QueryParam("lastName") String lastName,
-                             @QueryParam("age") int age,
+                             @QueryParam("age") String age,
                              @QueryParam("password") String password,
                              @QueryParam("photo") String photo,
                              @QueryParam("chef") boolean chef) throws
                              JSONException, IOException, ParseException {
+        
+        int newAge = Integer.parseInt(age);
                                
         if (!binaryTree.contains(email)) {               
                         
-            UserJson.insert(email, name, lastName, age, password, photo, chef);
+            UserJson.insert(email, name, lastName, newAge, password, photo, chef);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email)).build();                          
                                                 
@@ -293,24 +295,32 @@ public class Services {
     public Response postRecipe(@QueryParam("name") String name,
                                @QueryParam("author") String author,
                                @QueryParam("type") String type,
-                               @QueryParam("portions") int portions,
-                               @QueryParam("duration") int duration,
+                               @QueryParam("portions") String portions,
+                               @QueryParam("duration") String duration,
                                @QueryParam("time") String time,
-                               @QueryParam("difficulty") int difficulty,
+                               @QueryParam("difficulty") String difficulty,
                                @QueryParam("dietTag") String dietTag,
                                @QueryParam("photo") String photo,
                                @QueryParam("ingredients") String ingredients,
                                @QueryParam("steps") String steps,
-                               @QueryParam("price") int price,
-                               @QueryParam("calification") int calification,
-                               @QueryParam("publication") int publication)                               
+                               @QueryParam("price") String price,
+                               @QueryParam("calification") String calification,
+                               @QueryParam("publication") String publication)                               
                                throws JSONException, IOException {
+        
+        int newPortions = Integer.parseInt(portions);
+        int newDuration = Integer.parseInt(duration);
+        int newDifficulty = Integer.parseInt(difficulty);
+        int newPrice = Integer.parseInt(price);
+        int newCalification = Integer.parseInt(calification);
+        int newPublication = Integer.parseInt(publication);
+        
           
         if (!avltree.contains(name)) {
             
-            RecipeJson.insert(name, author, type, portions, duration, time, difficulty,
-                              dietTag, photo, ingredients, steps, price, calification,
-                              publication);
+            RecipeJson.insert(name, author, type, newPortions, newDuration, time, newDifficulty,
+                              dietTag, photo, ingredients, steps, newPrice, newCalification,
+                              newPublication);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
                                                 
