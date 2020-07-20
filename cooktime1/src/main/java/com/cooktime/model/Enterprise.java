@@ -1,24 +1,26 @@
 package com.cooktime.model;
 
+import java.util.ArrayList;
+
 public class Enterprise {
     
     private String name;
     private String logo;
     private String contact;
     private String schedule;
-    
-    // RestApi de Google Maps
     private String direction;
+    private ArrayList<String> members = new ArrayList<String>();
 
-    public Enterprise(String name, String logo, String contact, String schedule, String direction) {
+    public Enterprise(String name, String logo, String contact, String schedule, String direction, ArrayList<String> members) {
         
         this.name = name;
         this.logo = logo;
         this.contact = contact;
         this.schedule = schedule;
         this.direction = direction;
+        this.members = members;
         
-    }
+    }             
     
     public String getName() {
         
@@ -79,5 +81,17 @@ public class Enterprise {
         this.direction = direction;
         
     }
-    
+
+    public ArrayList<String> getMembers() {
+        
+        return members;
+        
+    }
+
+    public void setMembers(ArrayList<String> members) {
+        
+        this.members = members;
+        
+    }
+        
 }

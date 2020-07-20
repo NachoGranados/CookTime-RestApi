@@ -130,7 +130,7 @@ public class UserJson {
         
     }
     
-    public static void insertMyMenuList(String email, JSONArray myMenuListJson) {
+    public static void insertMyMenuList(String email, String newRecipe) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -158,8 +158,8 @@ public class UserJson {
         oldUserJson.put("chef", chef);
 
         JSONObject newUserJson = new JSONObject();
-
-        myMenuList = createRecipeList(myMenuListJson);
+        
+        myMenuList.add(avlTree.getRecipe(newRecipe));
 
         newUserJson.put("email", email);
         newUserJson.put("name", name);
@@ -202,7 +202,7 @@ public class UserJson {
 
     }
         
-    public static void insertBubbleSort(String email, JSONArray myMenuListJson) {
+    public static void insertBubbleSort(String email) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -276,7 +276,7 @@ public class UserJson {
 
     }
         
-    public static void insertQuickSort(String email, JSONArray myMenuListJson) {
+    public static void insertQuickSort(String email) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -353,7 +353,7 @@ public class UserJson {
 
     }
         
-    public static void insertRadixSort(String email, JSONArray myMenuListJson) {
+    public static void insertRadixSort(String email) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -429,7 +429,9 @@ public class UserJson {
 
     }
         
-    public static void insertFollowers(String email, JSONArray followersJson) {
+    public static void insertFollowers(String email, String newFollower) {
+        
+        System.out.println("newFollower " + newFollower);
 
         User oldUser = binaryTree.getUser(email);
 
@@ -458,8 +460,8 @@ public class UserJson {
 
         JSONObject newUserJson = new JSONObject();
 
-        followers = createStringList(followersJson);
-
+        followers.add(newFollower);
+        
         newUserJson.put("email", email);
         newUserJson.put("name", name);
         newUserJson.put("lastName", lastName);
@@ -501,7 +503,7 @@ public class UserJson {
 
     }
     
-    public static void insertFollowed(String email, JSONArray followedJson) {
+    public static void insertFollowed(String email, String newFollowed) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -530,7 +532,7 @@ public class UserJson {
 
         JSONObject newUserJson = new JSONObject();
 
-        followed = createStringList(followedJson);
+        followed.add(newFollowed);
 
         newUserJson.put("email", email);
         newUserJson.put("name", name);
@@ -576,40 +578,6 @@ public class UserJson {
     public static BinaryTree getBinaryTree() {
         
         return binaryTree;
-        
-    }
-    
-    private static ArrayList<Recipe> createRecipeList (JSONArray list) {
-        
-        ArrayList<Recipe> newList = new ArrayList<Recipe>();        
-        String name;
-        
-        for (int i = 0; i < list.size(); i ++) {
-            
-            name = (String) list.get(i);
-            
-            newList.add(avlTree.getRecipe(name));
-                        
-        }
-        
-        return newList;
-        
-    }
-    
-    private static ArrayList<String> createStringList (JSONArray list) {
-        
-        ArrayList<String> newList = new ArrayList<String>();        
-        String name;
-        
-        for (int i = 0; i < list.size(); i ++) {
-            
-            name = (String) list.get(i);
-            
-            newList.add(name);
-                        
-        }
-        
-        return newList;
         
     }
            

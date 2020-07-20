@@ -237,13 +237,18 @@ public class SplayTree {
 
         this.root = node;
 
-    }    
-    
-    public void insert(String name, String logo, String contact, String schedule,
-                       String direction) {
+    } 
         
-        Enterprise newEnterprise = new Enterprise(name,logo,contact,schedule,direction);
+    public void insert(String name, String logo, String contact, String schedule, String direction, ArrayList<String> members) {
         
+        Enterprise newEnterprise = new Enterprise(name,logo,contact,schedule,direction,members);
+        
+        this.insertAux(newEnterprise);
+        
+    }
+     
+    private void insertAux(Enterprise newEnterprise) {
+                
         NodeSplayTree node1 = this.root;
         NodeSplayTree node2 = null;
         
@@ -296,30 +301,7 @@ public class SplayTree {
         count ++;
         
     }
-    
-    
-    /*
-    public void inorder() {
         
-        inorder(this.root);
-        
-    }
-
-    private void inorder(NodeSplayTree r) {
-        
-        if (r != null) {
-            
-            inorder(r.getLeft());
-            System.out.print(r.getEnterprise().getName());
-            System.out.println("");
-            inorder(r.getRight());
-            
-        }
-        
-    }
-
-    */
-    
     public ArrayList<Enterprise> inOrder() {
 
         this.recipeList.clear();

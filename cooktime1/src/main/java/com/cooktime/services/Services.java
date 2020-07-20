@@ -7,6 +7,8 @@ import com.cooktime.model.RecipeJson;
 import com.cooktime.model.SplayTree;
 import com.cooktime.model.UserJson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -102,18 +104,12 @@ public class Services {
     @Path("/postMyMenuList/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postMyMenuList(@QueryParam("email") String email,
-                                   @QueryParam("myMenuList") String myMenuList)
+                                   @QueryParam("newRecipe") String newRecipe)
                                    throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
-            JSONParser parser = new JSONParser();
-            
-            Object object = parser.parse(myMenuList);
-
-            JSONArray myMenuListJson = (JSONArray) object;
-
-            UserJson.insertMyMenuList(email, myMenuListJson);
+            UserJson.insertMyMenuList(email, newRecipe);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
                                               
@@ -126,19 +122,17 @@ public class Services {
     @POST
     @Path("/postBubbleSort/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postBubbleSort(@QueryParam("email") String email,
-                                   @QueryParam("myMenuList") String myMenuList)
-                                   throws JSONException, IOException, ParseException {
+    public Response postBubbleSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
-            JSONParser parser = new JSONParser();
+            //JSONParser parser = new JSONParser();
             
-            Object object = parser.parse(myMenuList);
+            //Object object = parser.parse(myMenuList);
 
-            JSONArray myMenuListJson = (JSONArray) object;
+            //JSONArray myMenuListJson = (JSONArray) object;
 
-            UserJson.insertMyMenuList(email, myMenuListJson);
+            UserJson.insertBubbleSort(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
                                               
@@ -151,19 +145,17 @@ public class Services {
     @POST
     @Path("/postQuickSort/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postQuickSort(@QueryParam("email") String email,
-                                   @QueryParam("myMenuList") String myMenuList)
-                                   throws JSONException, IOException, ParseException {
+    public Response postQuickSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
-            JSONParser parser = new JSONParser();
+            //JSONParser parser = new JSONParser();
             
-            Object object = parser.parse(myMenuList);
+            //Object object = parser.parse(myMenuList);
 
-            JSONArray myMenuListJson = (JSONArray) object;
+            //JSONArray myMenuListJson = (JSONArray) object;
 
-            UserJson.insertMyMenuList(email, myMenuListJson);
+            UserJson.insertQuickSort(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
                                               
@@ -176,19 +168,17 @@ public class Services {
     @POST
     @Path("/postRadixSort/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postRadixSort(@QueryParam("email") String email,
-                                   @QueryParam("myMenuList") String myMenuList)
-                                   throws JSONException, IOException, ParseException {
+    public Response postRadixSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
-            JSONParser parser = new JSONParser();
+            //JSONParser parser = new JSONParser();
             
-            Object object = parser.parse(myMenuList);
+            //Object object = parser.parse(myMenuList);
 
-            JSONArray myMenuListJson = (JSONArray) object;
+            //JSONArray myMenuListJson = (JSONArray) object;
 
-            UserJson.insertMyMenuList(email, myMenuListJson);
+            UserJson.insertRadixSort(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
                                               
@@ -202,18 +192,12 @@ public class Services {
     @Path("/postFollowers/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postFollowers(@QueryParam("email") String email,
-                                  @QueryParam("followers") String followers)
+                                  @QueryParam("newFollower") String newFollower)
                                   throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
-            
-            JSONParser parser = new JSONParser();
-            
-            Object object = parser.parse(followers);
 
-            JSONArray followersJson = (JSONArray) object;
-
-            UserJson.insertFollowers(email, followersJson);
+            UserJson.insertFollowers(email, newFollower);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowers()).build();                          
                                               
@@ -227,18 +211,12 @@ public class Services {
     @Path("/postFollowed/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postFollowed(@QueryParam("email") String email,
-                                 @QueryParam("followed") String followed)
+                                 @QueryParam("newFollowed") String newFollowed)
                                  throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
-            
-            JSONParser parser = new JSONParser();
-            
-            Object object = parser.parse(followed);
 
-            JSONArray followedJson = (JSONArray) object;
-
-            UserJson.insertFollowed(email, followedJson);
+            UserJson.insertFollowed(email, newFollowed);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowed()).build();                          
                                               
@@ -361,35 +339,31 @@ public class Services {
                                    @QueryParam("logo") String logo,
                                    @QueryParam("contact") String contact,
                                    @QueryParam("schedule") String schedule,
-                                   @QueryParam("direction") String direction)
-                                   throws JSONException, IOException {
-                               
+                                   @QueryParam("direction") String direction,
+                                   @QueryParam("members") String members)
+                                   throws JSONException, IOException,
+                                   ParseException {
+                                       
         if (!splayTree.contains(name)) {
             
-            EnterpriseJson.insert(name, logo, contact, schedule, direction);
+            String newMembers[] = members.split(",");
             
-            return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                          
-                                                
+            ArrayList<String> finalMembers = new ArrayList<String>();
+            
+            for (int i = 0; i < newMembers.length; i ++) {
+                
+                finalMembers.add(newMembers[0]);                
+                
+            }        
+                        
+            EnterpriseJson.insert(name, logo, contact, schedule, direction, finalMembers);
+            
+            return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                           
+                                               
         }
         
-        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();                
       
     }     
-
-    @POST    
-    @Path("/postPrueba/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response postJson(@QueryParam("list") String list) throws ParseException {
-        
-        
-        JSONParser parser = new JSONParser();
-        
-        JSONObject json = (JSONObject) parser.parse(list);
-        
-        JSONArray jSONArray = (JSONArray) json.get("list");
-
-        return Response.status(Response.Status.CREATED).entity(jSONArray).build();
-      
-    }  
-        
+  
 }

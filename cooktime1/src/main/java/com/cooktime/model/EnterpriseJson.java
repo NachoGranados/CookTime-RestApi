@@ -3,6 +3,7 @@ package com.cooktime.model;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.codehaus.jettison.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,10 +14,10 @@ public class EnterpriseJson {
     private static SplayTree splayTree = new SplayTree();
     
     public static void insert(String name, String logo, String contact, String schedule,
-                              String direction) throws JSONException,
+                              String direction, ArrayList<String> members) throws JSONException,
                               IOException {
         
-        splayTree.insert(name, logo, contact, schedule, direction);
+        splayTree.insert(name, logo, contact, schedule, direction, members);
         
         JSONObject newEnterprise = new JSONObject();
     
@@ -25,6 +26,7 @@ public class EnterpriseJson {
         newEnterprise.put("contact", contact);
         newEnterprise.put("schedule", schedule);
         newEnterprise.put("direction", direction);
+        newEnterprise.put("members", members);
         
         JSONParser parser = new JSONParser();
                         
@@ -48,8 +50,8 @@ public class EnterpriseJson {
             
         }  
         
-    }
-    
+    }   
+        
     public static SplayTree getSplayTree() {
         
         return splayTree;

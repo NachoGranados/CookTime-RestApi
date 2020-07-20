@@ -36,7 +36,8 @@ public class User {
     }
     
     public User(String email, String name, String lastName, int age, String password, String photo,
-                ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {
+                ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed,
+                boolean chef) {
         
         BubbleSort bubbleSort = new BubbleSort();
         
