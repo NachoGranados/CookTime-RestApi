@@ -1,5 +1,7 @@
 package com.cooktime.model;
 
+import java.util.ArrayList;
+
 public class Recipe {
     
     private String name;
@@ -15,11 +17,14 @@ public class Recipe {
     private String steps;
     private int price;
     private int calification;
-    private int publication;
+    private int day;
+    private int month;
+    private int year;
+    private ArrayList<String> commentary = new ArrayList<String>();
 
     public Recipe(String name, String author, String type, int portions, int duration,
                   String time, int difficulty, String dietTag, String photo, String ingredients,
-                  String steps, int price, int calification, int publication) {
+                  String steps, int price, int calification, int day, int month, int year) {
         
         this.name = name;
         this.author = author;
@@ -34,9 +39,38 @@ public class Recipe {
         this.steps = steps;
         this.price = price;
         this.calification = calification;
-        this.publication = publication;
+        this.day = day;
+        this.month = month;
+        this.year = year;
         
     }
+    
+    public Recipe(String name, String author, String type, int portions, int duration,
+                  String time, int difficulty, String dietTag, String photo, String ingredients,
+                  String steps, int price, int calification, int day, int month, int year,
+                  ArrayList<String> commentary) {
+        
+        this.name = name;
+        this.author = author;
+        this.type = type;
+        this.portions = portions;
+        this.duration = duration;
+        this.time = time;
+        this.difficulty = difficulty;
+        this.dietTag = dietTag;
+        this.photo = photo;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.price = price;
+        this.calification = calification;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.commentary = commentary;
+        
+    }
+    
+    
 
     public String getName() {
         
@@ -193,16 +227,52 @@ public class Recipe {
         
     }
 
-    public int getPublication() {
+    public int getDay() {
         
-        return publication;
+        return day;
         
     }
 
-    public void setPublication(int publication) {
+    public void setDay(int day) {
         
-        this.publication = publication;
+        this.day = day;
         
     }
-    
+
+    public int getMonth() {
+        
+        return month;
+        
+    }
+
+    public void setMonth(int month) {
+        
+        this.month = month;
+        
+    }
+
+    public int getYear() {
+        
+        return year;
+        
+    }
+
+    public void setYear(int year) {
+        
+        this.year = year;
+        
+    }   
+
+    public ArrayList<String> getCommentary() {
+        
+        return commentary;
+        
+    }
+
+    public void setCommentary(ArrayList<String> commentary) {
+        
+        this.commentary = commentary;
+        
+    }
+       
 }

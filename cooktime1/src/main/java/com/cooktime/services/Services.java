@@ -8,9 +8,7 @@ import com.cooktime.model.SplayTree;
 import com.cooktime.model.UserJson;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,9 +18,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 @Path("services")
@@ -100,6 +95,21 @@ public class Services {
       
     } 
     
+    @GET
+    @Path("/getMyMenuList/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMyMenuList(@PathParam("email") String email) throws JSONException, IOException {
+                                
+        if (binaryTree.contains(email)) {
+            
+            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                              
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_FOUND).build();
+        
+    }
+        
     @POST
     @Path("/postMyMenuList/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -249,7 +259,9 @@ public class Services {
         return Response.status(Response.Status.NOT_FOUND).build();
         
     }
-    
+        
+    /*
+    // Revisar si se usa, sino se borra
     @DELETE
     @Path("/deleteRecipe/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -267,6 +279,8 @@ public class Services {
         
     }
         
+    */
+    
     @POST
     @Path("/postRecipe/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -291,14 +305,18 @@ public class Services {
         int newDifficulty = Integer.parseInt(difficulty);
         int newPrice = Integer.parseInt(price);
         int newCalification = Integer.parseInt(calification);
-        int newPublication = Integer.parseInt(publication);
         
+        String newPublication[] = publication.split("/");
+        
+        int day = Integer.parseInt(newPublication[0]);
+        int month = Integer.parseInt(newPublication[1]);
+        int year = Integer.parseInt(newPublication[2]);            
           
         if (!avltree.contains(name)) {
             
             RecipeJson.insert(name, author, type, newPortions, newDuration, time, newDifficulty,
                               dietTag, photo, ingredients, steps, newPrice, newCalification,
-                              newPublication);
+                              day, month, year);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
                                                 
@@ -307,7 +325,47 @@ public class Services {
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
     }
- 
+    
+    @POST
+    @Path("/postCalification/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postCalification(@QueryParam("name") String name,
+                                     @QueryParam("calification") String calification)                               
+                                     throws JSONException, IOException {
+        
+        int newCalification = Integer.parseInt(calification);       
+          
+        if (avltree.contains(name)) {
+            
+            RecipeJson.insertCalification(name, newCalification);
+                    
+            return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postCommentary/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postCommentary(@QueryParam("name") String name,
+                                   @QueryParam("commentary") String commentary)                               
+                                   throws JSONException, IOException {        
+          
+        if (avltree.contains(name)) {
+            
+            RecipeJson.insertCommentary(name, commentary);
+                    
+            return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
     @GET
     @Path("/getAllEnterprises/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -352,7 +410,7 @@ public class Services {
             
             for (int i = 0; i < newMembers.length; i ++) {
                 
-                finalMembers.add(newMembers[0]);                
+                finalMembers.add(newMembers[i]);                
                 
             }        
                         

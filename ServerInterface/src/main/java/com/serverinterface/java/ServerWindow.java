@@ -124,11 +124,11 @@ public class ServerWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Recipe", "Name", "Author", "Type", "Portions", "Duration", "Time", "Difficulty", "Diet Tag", "Photo", "Ingredients", "Steps", "Price", "Calification", "Publication Date"
+                "Recipe", "Name", "Author", "Type", "Portions", "Duration", "Time", "Difficulty", "Diet Tag", "Photo", "Ingredients", "Steps", "Price", "Calification", "Day", "Month", "Year", "Commentaries"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -153,6 +153,9 @@ public class ServerWindow extends javax.swing.JFrame {
             tableRecipes.getColumnModel().getColumn(12).setResizable(false);
             tableRecipes.getColumnModel().getColumn(13).setResizable(false);
             tableRecipes.getColumnModel().getColumn(14).setResizable(false);
+            tableRecipes.getColumnModel().getColumn(15).setResizable(false);
+            tableRecipes.getColumnModel().getColumn(16).setResizable(false);
+            tableRecipes.getColumnModel().getColumn(17).setResizable(false);
         }
 
         btnAssignChef.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -168,11 +171,11 @@ public class ServerWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Enterprise", "Name", "Logo", "Contact", "Direction"
+                "Enterprise", "Name", "Logo", "Contact", "Schedule", "Direction", "Members"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -187,6 +190,8 @@ public class ServerWindow extends javax.swing.JFrame {
             tableEnterprises.getColumnModel().getColumn(2).setResizable(false);
             tableEnterprises.getColumnModel().getColumn(3).setResizable(false);
             tableEnterprises.getColumnModel().getColumn(4).setResizable(false);
+            tableEnterprises.getColumnModel().getColumn(5).setResizable(false);
+            tableEnterprises.getColumnModel().getColumn(6).setResizable(false);
         }
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
@@ -420,7 +425,7 @@ public class ServerWindow extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) tableRecipes.getModel();
 
-        Object rowData[] = new Object[15];
+        Object rowData[] = new Object[18];
 
         rowData[0] = number;
         rowData[1] = (String) object.get("name");
@@ -436,7 +441,10 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[11] = (String) object.get("steps");
         rowData[12] = (String) object.get("price").toString();
         rowData[13] = (String) object.get("calification").toString();
-        rowData[14] = (String) object.get("publication").toString();
+        rowData[14] = (String) object.get("day").toString();
+        rowData[15] = (String) object.get("month").toString();
+        rowData[16] = (String) object.get("year").toString();
+        rowData[17] = (String) object.get("commentary").toString();
         
         model.addRow(rowData);
             
@@ -446,7 +454,7 @@ public class ServerWindow extends javax.swing.JFrame {
                 
         DefaultTableModel model = (DefaultTableModel) tableEnterprises.getModel();
 
-        Object rowData[] = new Object[6];
+        Object rowData[] = new Object[7];
 
         rowData[0] = number;
         rowData[1] = (String) object.get("name");
@@ -454,6 +462,7 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[3] = (String) object.get("contact");
         rowData[4] = (String) object.get("schedule");
         rowData[5] = (String) object.get("direction");
+        rowData[6] = (String) object.get("members").toString();
         
         model.addRow(rowData);
             

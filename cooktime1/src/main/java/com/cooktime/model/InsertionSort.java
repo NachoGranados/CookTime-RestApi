@@ -14,7 +14,11 @@ public class InsertionSort {
 
                 aux = array.get(i);
 
-                for (int j = i - 1; j >= 0 && array.get(j).getPublication() > aux.getPublication(); j--) {
+                //for (int j = i - 1; j >= 0 && array.get(j).getPublication() > aux.getPublication(); j--) {
+                
+                for (int j = i - 1; j >= 0 && array.get(j).getYear()>= aux.getYear()
+                                           && array.get(j).getMonth()>= aux.getMonth()
+                                           && array.get(j).getDay()>= aux.getDay(); j--) {                
 
                     array.set(j + 1, array.get(j));
                     array.set(j, aux);
