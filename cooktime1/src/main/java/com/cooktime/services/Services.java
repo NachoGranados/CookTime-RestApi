@@ -51,6 +51,17 @@ public class Services {
         
     }
         
+    @GET
+    @Path("/getMatchUsers/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMatchUsers(@PathParam("name") String name) throws JSONException, IOException {
+        
+        int size = name.length();
+        
+        return Response.ok(binaryTree.matches(name, size)).build();                              
+                            
+    }
+    
     @POST
     @Path("/postUser/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -259,7 +270,18 @@ public class Services {
         return Response.status(Response.Status.NOT_FOUND).build();
         
     }
+    
+    @GET
+    @Path("/getMatchRecipes/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMatchRecipes(@PathParam("name") String name) throws JSONException, IOException {
         
+        int size = name.length();
+        
+        return Response.ok(avltree.matches(name, size)).build();                              
+                            
+    }
+            
     /*
     // Revisar si se usa, sino se borra
     @DELETE
@@ -390,6 +412,17 @@ public class Services {
         
     }
     
+    @GET
+    @Path("/getMatchEnterprises/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMatchEnterprises(@PathParam("name") String name) throws JSONException, IOException {
+        
+        int size = name.length();
+        
+        return Response.ok(splayTree.matches(name, size)).build();                              
+                            
+    }
+    
     @POST
     @Path("/postEnterprise/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -413,7 +446,7 @@ public class Services {
                 finalMembers.add(newMembers[i]);                
                 
             }        
-                        
+            
             EnterpriseJson.insert(name, logo, contact, schedule, direction, finalMembers);
             
             return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                           
@@ -422,6 +455,6 @@ public class Services {
         
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();                
       
-    }     
-  
+    }
+
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MainBubbleSort {
 
-    public static void main(String args[]) {
+    public static void main() {
                 
         Recipe r1 = new Recipe("Arroz", "Juan", "Desayuno", 1, 0, "Aperitivo", 10, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 3, 12, 2, 2020);
         Recipe r2 = new Recipe("Avena", "Juan", "Desayuno", 1, 0, "Aperitivo", 20, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 9, 17, 2, 2020);

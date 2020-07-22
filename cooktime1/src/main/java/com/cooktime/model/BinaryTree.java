@@ -254,6 +254,61 @@ public class BinaryTree {
       
     }
     
+    public ArrayList<User> matches(String name, int endIndex) {
+                        
+        ArrayList<User> matchesList = new ArrayList<User>();
+        
+        matchesList = matchesAux(matchesList, name, endIndex, this.root);
+        
+        ArrayList<User> finalMatchesList = new ArrayList<User>();
+        
+        int cont = 0;
+        
+        int size = matchesList.size();
+        
+        while (cont < 15) {
+            
+            if (cont < size) {
+                
+                finalMatchesList.add(matchesList.get(cont));
+                
+            } else {
+                
+                break;
+                
+            }            
+            
+            cont ++;
+            
+        }
+                
+        return finalMatchesList;
+ 
+    }
+    
+    private ArrayList<User> matchesAux(ArrayList<User> matchesList, String name, int endIndex, NodeBinaryTree node) {
+        
+      if (node == null) {
+          
+        return null;
+        
+      }
+              
+      int result = node.getUser().getName().substring(0, endIndex).compareTo(name);
+              
+      if (result == 0) {
+          
+          matchesList.add(node.getUser());
+                    
+      }
+      
+      matchesAux(matchesList, name, endIndex, node.getLeft());
+      matchesAux(matchesList, name, endIndex, node.getRight());
+      
+      return matchesList;
+      
+    }
+    
     public String encrypte(String password) {
         
         Charset UTF_8 = StandardCharsets.UTF_8;

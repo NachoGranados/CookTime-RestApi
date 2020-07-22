@@ -575,11 +575,38 @@ public class UserJson {
 
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static BinaryTree getBinaryTree() {
         
         return binaryTree;
         
-    }
+    }   
            
 }
 

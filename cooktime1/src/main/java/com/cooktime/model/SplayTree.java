@@ -325,5 +325,60 @@ public class SplayTree {
         return recipeList;
 
     }
+    
+    public ArrayList<Enterprise> matches(String name, int endIndex) {
+                        
+        ArrayList<Enterprise> matchesList = new ArrayList<Enterprise>();
+        
+        matchesList = matchesAux(matchesList, name, endIndex, this.root);
+        
+        ArrayList<Enterprise> finalMatchesList = new ArrayList<Enterprise>();
+        
+        int cont = 0;
+        
+        int size = matchesList.size();
+        
+        while (cont < 15) {
+            
+            if (cont < size) {
+                
+                finalMatchesList.add(matchesList.get(cont));
+                
+            } else {
+                
+                break;
+                
+            }            
+            
+            cont ++;
+            
+        }
+                
+        return finalMatchesList;
+ 
+    }
+    
+    private ArrayList<Enterprise> matchesAux(ArrayList<Enterprise> matchesList, String name, int endIndex, NodeSplayTree node) {
+        
+      if (node == null) {
+          
+        return null;
+        
+      }
+      
+      int result = node.getEnterprise().getName().substring(0, endIndex).compareTo(name);
+              
+      if (result == 0) {
+          
+          matchesList.add(node.getEnterprise());
+                    
+      }
+      
+      matchesAux(matchesList, name, endIndex, node.getLeft());
+      matchesAux(matchesList, name, endIndex, node.getRight());
+      
+      return matchesList;
+      
+    }
 
 }
