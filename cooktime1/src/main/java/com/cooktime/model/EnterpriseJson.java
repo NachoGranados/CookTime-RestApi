@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 public class EnterpriseJson {
     
     private static SplayTree splayTree = new SplayTree();
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\enterprises.json";
     
     public static void insert(String name, String logo, String contact, String schedule,
                               String direction, ArrayList<String> members) throws JSONException,
@@ -32,24 +33,24 @@ public class EnterpriseJson {
                         
         try {
             
-            Object jsonFile = parser.parse(new FileReader("enterprises.json")); 
-            
-            JSONArray enterpriseList = (JSONArray) jsonFile;
-            
+            Object jsonFile = parser.parse(new FileReader(directionJson));
+                                  
+            JSONArray enterpriseList = (JSONArray) jsonFile;            
+                        
             enterpriseList.add(newEnterprise);                        
             
-            FileWriter file = new FileWriter("enterprises.json");
+            FileWriter file = new FileWriter(directionJson);                       
             
-            file.write(enterpriseList.toString());
-            file.flush();
+            file.write(enterpriseList.toJSONString());   
+            
             file.close();
                                                             
         } catch (Exception e) {
             
             e.printStackTrace();
             
-        }  
-        
+        }         
+                
     }   
         
     public static SplayTree getSplayTree() {
@@ -57,28 +58,5 @@ public class EnterpriseJson {
         return splayTree;
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
 }

@@ -159,7 +159,7 @@ public class BinaryTree {
     }
     
     public void insert2(String email, String name, String lastName, int age, String password, String photo,
-                        ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed, boolean chef) {         
+                        ArrayList<Recipe> myMenuList, int followers, int followed, boolean chef) {         
                 
         User newUser = new User(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
         

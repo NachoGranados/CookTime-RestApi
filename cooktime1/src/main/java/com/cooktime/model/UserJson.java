@@ -13,6 +13,7 @@ public class UserJson {
     
     private static BinaryTree binaryTree = new BinaryTree();
     private static AVLTree avlTree = RecipeJson.getAVLTree();
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\users.json";
     
     public static void insert(String email, String name, String lastName, int age, String password, String photo,
                                boolean chef) throws JSONException, IOException {
@@ -40,13 +41,13 @@ public class UserJson {
                         
         try {
             
-            Object jsonFile = parser.parse(new FileReader("users.json")); 
+            Object jsonFile = parser.parse(new FileReader(directionJson)); 
             
             JSONArray userList = (JSONArray) jsonFile;
             
             userList.add(newUser);                        
             
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
             
             file.write(userList.toString());
             file.flush();
@@ -70,8 +71,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
         
         JSONObject oldUserJson = new JSONObject();
@@ -108,7 +109,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
             
@@ -116,7 +117,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -140,8 +141,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -180,7 +181,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -188,7 +189,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -212,8 +213,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -254,7 +255,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -262,7 +263,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -286,8 +287,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -331,7 +332,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -339,7 +340,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -363,8 +364,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -407,7 +408,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -415,7 +416,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -429,10 +430,8 @@ public class UserJson {
 
     }
         
-    public static void insertFollowers(String email, String newFollower) {
+    public static void insertFollowers(String email) {
         
-        System.out.println("newFollower " + newFollower);
-
         User oldUser = binaryTree.getUser(email);
 
         String name = oldUser.getName();
@@ -441,8 +440,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -460,7 +459,7 @@ public class UserJson {
 
         JSONObject newUserJson = new JSONObject();
 
-        followers.add(newFollower);
+        followers ++;
         
         newUserJson.put("email", email);
         newUserJson.put("name", name);
@@ -481,7 +480,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -489,7 +488,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -503,7 +502,7 @@ public class UserJson {
 
     }
     
-    public static void insertFollowed(String email, String newFollowed) {
+    public static void insertFollowed(String email) {
 
         User oldUser = binaryTree.getUser(email);
 
@@ -513,8 +512,8 @@ public class UserJson {
         String password = oldUser.getPassword();
         String photo = oldUser.getPhoto();
         ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        ArrayList<String> followers = oldUser.getFollowers();
-        ArrayList<String> followed = oldUser.getFollowed();
+        int followers = oldUser.getFollowers();
+        int followed = oldUser.getFollowed();
         boolean chef = oldUser.getChef();
 
         JSONObject oldUserJson = new JSONObject();
@@ -532,7 +531,7 @@ public class UserJson {
 
         JSONObject newUserJson = new JSONObject();
 
-        followed.add(newFollowed);
+        followed ++;
 
         newUserJson.put("email", email);
         newUserJson.put("name", name);
@@ -553,7 +552,7 @@ public class UserJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("users.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson));
 
             JSONArray userList = (JSONArray) jsonFile;
 
@@ -561,7 +560,7 @@ public class UserJson {
 
             userList.add(newUserJson);
 
-            FileWriter file = new FileWriter("users.json");
+            FileWriter file = new FileWriter(directionJson);   
 
             file.write(userList.toString());
             file.flush();
@@ -574,34 +573,7 @@ public class UserJson {
         }
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
     public static BinaryTree getBinaryTree() {
         
         return binaryTree;

@@ -10,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 public class RecipeJson {
 
     private static AVLTree aVLTree = new AVLTree();
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\recipes.json";
 
     public static void insert(String name, String author, String type, int portions, int duration,
                               String time, int difficulty, String dietTag, String photo, String ingredients,
@@ -40,13 +41,13 @@ public class RecipeJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("recipes.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson)); 
 
             JSONArray recipeList = (JSONArray) jsonFile;
 
             recipeList.add(newRecipe);
 
-            FileWriter file = new FileWriter("recipes.json");
+            FileWriter file = new FileWriter(directionJson);    
 
             file.write(recipeList.toString());
             file.flush();
@@ -128,7 +129,7 @@ public class RecipeJson {
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("recipes.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson)); 
 
             JSONArray recipeList = (JSONArray) jsonFile;
 
@@ -136,7 +137,7 @@ public class RecipeJson {
 
             recipeList.add(newRecipeJson);
             
-            FileWriter file = new FileWriter("recipes.json");
+            FileWriter file = new FileWriter(directionJson);    
 
             file.write(recipeList.toString());
             file.flush();
@@ -214,13 +215,13 @@ public class RecipeJson {
         aVLTree.remove(name);
         
         aVLTree.insert2(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                       steps, price, calification, day, month, year, commentary);
+                        steps, price, calification, day, month, year, commentary);
         
         JSONParser parser = new JSONParser();
 
         try {
 
-            Object jsonFile = parser.parse(new FileReader("recipes.json"));
+            Object jsonFile = parser.parse(new FileReader(directionJson)); 
 
             JSONArray recipeList = (JSONArray) jsonFile;
 
@@ -228,7 +229,7 @@ public class RecipeJson {
 
             recipeList.add(newRecipeJson);
             
-            FileWriter file = new FileWriter("recipes.json");
+            FileWriter file = new FileWriter(directionJson);    
 
             file.write(recipeList.toString());
             file.flush();
@@ -242,19 +243,6 @@ public class RecipeJson {
 
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     public static AVLTree getAVLTree() {
 
         return aVLTree;

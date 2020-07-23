@@ -12,8 +12,8 @@ public class User {
     private String photo;
     private ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
     private String lastSort = "BubbleSort";
-    private ArrayList<String> followers = new ArrayList<String>();
-    private ArrayList<String> followed = new ArrayList<String>();
+    private int followers = 0;
+    private int followed = 0;
     private boolean chef;
         
     public User(String email) {
@@ -36,7 +36,7 @@ public class User {
     }
     
     public User(String email, String name, String lastName, int age, String password, String photo,
-                ArrayList<Recipe> myMenuList, ArrayList<String> followers, ArrayList<String> followed,
+                ArrayList<Recipe> myMenuList, int followers, int followed,
                 boolean chef) {
         
         BubbleSort bubbleSort = new BubbleSort();
@@ -152,25 +152,25 @@ public class User {
         
     }
 
-    public ArrayList<String> getFollowers() {
+    public int getFollowers() {
         
         return followers;
         
     }
 
-    public void setFollowers(ArrayList<String> followers) {
+    public void setFollowers(int followers) {
         
         this.followers = followers;
         
     }
 
-    public ArrayList<String> getFollowed() {
+    public int getFollowed() {
         
         return followed;
         
     }
 
-    public void setFollowed(ArrayList<String> followed) {
+    public void setFollowed(int followed) {
         
         this.followed = followed;
         

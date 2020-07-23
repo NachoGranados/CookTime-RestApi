@@ -212,13 +212,11 @@ public class Services {
     @POST
     @Path("/postFollowers/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFollowers(@QueryParam("email") String email,
-                                  @QueryParam("newFollower") String newFollower)
-                                  throws JSONException, IOException, ParseException {
+    public Response postFollowers(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
-
-            UserJson.insertFollowers(email, newFollower);
+            
+            UserJson.insertFollowers(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowers()).build();                          
                                               
@@ -231,13 +229,12 @@ public class Services {
     @POST
     @Path("/postFollowed/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFollowed(@QueryParam("email") String email,
-                                 @QueryParam("newFollowed") String newFollowed)
+    public Response postFollowed(@QueryParam("email") String email)
                                  throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
 
-            UserJson.insertFollowed(email, newFollowed);
+            UserJson.insertFollowed(email);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowed()).build();                          
                                               
@@ -254,8 +251,8 @@ public class Services {
                                 
         return Response.ok(avltree.inOrder()).build();
         
-    } 
-      
+    }        
+    
     @GET
     @Path("/getRecipe/{name}")
     @Produces(MediaType.APPLICATION_JSON)
