@@ -366,15 +366,23 @@ public class SplayTree {
         
       }
       
-      int result = node.getEnterprise().getName().substring(0, endIndex).compareTo(name);
-              
-      if (result == 0) {
-          
-          matchesList.add(node.getEnterprise());
-                    
-      }
-      
       matchesAux(matchesList, name, endIndex, node.getLeft());
+      
+      if (node.getEnterprise().getName().length() >= name.length()) {
+
+            String slice = node.getEnterprise().getName().substring(0, endIndex);
+
+            int result = slice.compareTo(name);
+
+            if (result == 0) {
+
+                matchesList.add(node.getEnterprise());
+
+            }
+
+        }
+            
+      //matchesAux(matchesList, name, endIndex, node.getLeft());
       matchesAux(matchesList, name, endIndex, node.getRight());
       
       return matchesList;

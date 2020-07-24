@@ -384,26 +384,34 @@ public class AVLTree {
     }
     
     private ArrayList<Recipe> matchesAux(ArrayList<Recipe> matchesList, String name, int endIndex, NodeAVLTree node) {
-        
-      if (node == null) {
-          
-        return null;
-        
-      }
-      
-      int result = node.getRecipe().getName().substring(0, endIndex).compareTo(name);
-              
-      if (result == 0) {
-          
-          matchesList.add(node.getRecipe());
-                    
-      }
-      
-      matchesAux(matchesList, name, endIndex, node.getLeft());
-      matchesAux(matchesList, name, endIndex, node.getRight());
-      
-      return matchesList;
-      
+
+        if (node == null) {
+
+            return null;
+
+        }
+
+        matchesAux(matchesList, name, endIndex, node.getLeft());
+
+        if (node.getRecipe().getName().length() >= name.length()) {
+
+            String slice = node.getRecipe().getName().substring(0, endIndex);
+
+            int result = slice.compareTo(name);
+
+            if (result == 0) {
+
+                matchesList.add(node.getRecipe());
+
+            }
+
+        }
+
+        //matchesAux(matchesList, name, endIndex, node.getLeft());
+        matchesAux(matchesList, name, endIndex, node.getRight());
+
+        return matchesList;
+
     }
 
 }  

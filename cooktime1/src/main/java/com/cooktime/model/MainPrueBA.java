@@ -15,6 +15,7 @@ public class MainPrueBA {
     
     public static void main(String args[]) throws JSONException, IOException {
         
+        /*
         ArrayList<String> list = new ArrayList<String>();
         list.add("Nacho1");
         list.add("Nacho2");               
@@ -51,6 +52,14 @@ public class MainPrueBA {
 
         */
         
+        
+        String hola = "Hamburguesa";
+        
+        System.out.println("lenght " + hola.length());
+        
+        String nuevo = hola.substring(5, hola.length());
+        
+        System.out.println("nuevo " + nuevo);
         
         
         

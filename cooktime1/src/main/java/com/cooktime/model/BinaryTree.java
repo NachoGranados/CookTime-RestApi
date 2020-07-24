@@ -260,7 +260,7 @@ public class BinaryTree {
         while (cont < 15) {
             
             if (cont < size) {
-                
+                                                
                 finalMatchesList.add(matchesList.get(cont));
                 
             } else {
@@ -284,16 +284,24 @@ public class BinaryTree {
         return null;
         
       }
-              
-      int result = node.getUser().getName().substring(0, endIndex).compareTo(name);
-              
-      if (result == 0) {
-                    
-          matchesList.add(node.getUser());
-                    
-      }
       
       matchesAux(matchesList, name, endIndex, node.getLeft());
+      
+      if (node.getUser().getName().length() >= name.length()) {
+
+            String slice = node.getUser().getName().substring(0, endIndex);
+
+            int result = slice.compareTo(name);
+
+            if (result == 0) {
+
+                matchesList.add(node.getUser());
+
+            }
+
+        }
+            
+      //matchesAux(matchesList, name, endIndex, node.getLeft());
       matchesAux(matchesList, name, endIndex, node.getRight());
       
       return matchesList;
