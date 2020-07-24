@@ -65,7 +65,26 @@ public class Services {
         return Response.status(Response.Status.NOT_FOUND).build();
         
     }
+    
+    @GET
+    @Path("/getUsersMyMenuList/{users}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsersMyMenuList(@PathParam("users") String users) throws JSONException, IOException {
         
+        String newUsers[] = users.split(",");
+            
+        ArrayList<String> finalUsers = new ArrayList<String>();
+
+        for (int i = 0; i < newUsers.length; i++) {
+
+            finalUsers.add(newUsers[i]);
+
+        }
+                
+        return Response.ok(UserJson.getUsersMyMenuList(finalUsers)).build();                              
+                                                        
+    }
+            
     @GET
     @Path("/getUserMatch/{name}")
     @Produces(MediaType.APPLICATION_JSON)

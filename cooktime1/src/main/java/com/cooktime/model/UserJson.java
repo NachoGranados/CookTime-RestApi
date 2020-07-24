@@ -205,6 +205,24 @@ public class UserJson {
         writeJson(newUserJson, email, false);
 
     }
+        
+    public static ArrayList<ArrayList<Recipe>> getUsersMyMenuList(ArrayList<String> array) {
+        
+        ArrayList<ArrayList<Recipe>> finalArray = new ArrayList<ArrayList<Recipe>>();
+        
+        for (int i = 0; i < array.size(); i ++) {
+            
+            User user = binaryTree.getUser(array.get(i));
+            
+            ArrayList<Recipe> myMenuList = user.getMyMenuList();
+            
+            finalArray.add(myMenuList);
+            
+        }
+        
+        return finalArray;
+        
+    }
     
     private static JSONObject createJsonUser(String email, String name, String lastName, int age, String password, String photo,
                                              ArrayList<Recipe> myMenuList, int followers, int followed, boolean chef) {
