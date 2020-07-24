@@ -51,7 +51,7 @@ public class MainPrueBA {
         }   
 
         */
-        
+        /*
         
         String hola = "Hamburguesa";
         
@@ -61,7 +61,7 @@ public class MainPrueBA {
         
         System.out.println("nuevo " + nuevo);
         
-        
+        */
         
         
     }

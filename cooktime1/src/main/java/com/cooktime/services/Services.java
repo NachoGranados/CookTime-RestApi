@@ -23,9 +23,9 @@ import org.json.simple.parser.ParseException;
 @Path("services")
 public class Services {
     
-    private BinaryTree binaryTree = UserJson.getBinaryTree();
-    private AVLTree avltree = RecipeJson.getAVLTree();
-    private SplayTree splayTree = EnterpriseJson.getSplayTree();
+    private BinaryTree binaryTree = BinaryTree.getInstance();
+    private AVLTree avltree = AVLTree.getInstance();
+    private SplayTree splayTree = SplayTree.getInstance();
     
     @GET
     @Path("/getAllUsers/")

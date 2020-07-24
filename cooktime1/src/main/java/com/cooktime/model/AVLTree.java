@@ -5,8 +5,27 @@ import java.util.ArrayList;
   
 public class AVLTree { 
     
+    private static AVLTree instance = null;
     private NodeAVLTree root;
     private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+
+    private AVLTree() {
+        
+        this.root = null;
+        
+    }
+    
+    public static AVLTree getInstance() {
+        
+        if (instance == null) {
+            
+            instance = new AVLTree();
+            
+        }
+        
+        return instance;
+                
+    }
     
     public boolean contains(String name) {
         
@@ -78,7 +97,21 @@ public class AVLTree {
         
         return node.getHeight();  
         
-    }  
+    }
+    
+    private NodeAVLTree findMin(NodeAVLTree node1) {  
+        
+        NodeAVLTree node2 = node1;  
+  
+        while (node2.getLeft() != null) {
+            
+            node2 = node2.getLeft(); 
+            
+        } 
+  
+        return node2;  
+        
+    } 
   
     private int findMax(int height1, int height2) {  
         
@@ -208,20 +241,6 @@ public class AVLTree {
         
         return node; 
                 
-    }  
-    
-    private NodeAVLTree findMin(NodeAVLTree node1) {  
-        
-        NodeAVLTree node2 = node1;  
-  
-        while (node2.getLeft() != null) {
-            
-            node2 = node2.getLeft(); 
-            
-        } 
-  
-        return node2;  
-        
     }  
     
     public void remove(String name) {
@@ -407,7 +426,6 @@ public class AVLTree {
 
         }
 
-        //matchesAux(matchesList, name, endIndex, node.getLeft());
         matchesAux(matchesList, name, endIndex, node.getRight());
 
         return matchesList;

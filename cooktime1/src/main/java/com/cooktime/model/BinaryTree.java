@@ -9,13 +9,26 @@ import java.security.NoSuchAlgorithmException;
 
 public class BinaryTree {
     
+    private static BinaryTree instance = null;
     private NodeBinaryTree root;
     private ArrayList<User> userList = new ArrayList<User>();
 
-    public BinaryTree() {
+    private BinaryTree() {
 
         this.root = null;
 
+    }
+    
+    public static BinaryTree getInstance() {
+        
+        if (instance == null) {
+            
+            instance = new BinaryTree();
+            
+        }
+        
+        return instance;
+                
     }
 
     public boolean isEmpty() {
@@ -301,7 +314,6 @@ public class BinaryTree {
 
         }
             
-      //matchesAux(matchesList, name, endIndex, node.getLeft());
       matchesAux(matchesList, name, endIndex, node.getRight());
       
       return matchesList;

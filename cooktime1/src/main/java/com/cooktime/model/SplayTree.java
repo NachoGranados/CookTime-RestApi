@@ -4,14 +4,27 @@ import java.util.ArrayList;
 
 public class SplayTree {
 
+    private static SplayTree instance = null;
     private NodeSplayTree root;
     private ArrayList<Enterprise> recipeList = new ArrayList<Enterprise>();
     private int count = 0;
 
-    public SplayTree() {
+    private SplayTree() {
 
-        root = null;
+        this.root = null;
 
+    }
+    
+    public static SplayTree getInstance() {
+        
+        if (instance == null) {
+            
+            instance = new SplayTree();
+            
+        }
+        
+        return instance;
+                
     }
 
     public boolean isEmpty() {
@@ -382,7 +395,6 @@ public class SplayTree {
 
         }
             
-      //matchesAux(matchesList, name, endIndex, node.getLeft());
       matchesAux(matchesList, name, endIndex, node.getRight());
       
       return matchesList;

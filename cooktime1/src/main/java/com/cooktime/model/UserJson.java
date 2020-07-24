@@ -11,8 +11,8 @@ import org.json.simple.parser.JSONParser;
 
 public class UserJson {
     
-    private static BinaryTree binaryTree = new BinaryTree();
-    private static AVLTree avlTree = RecipeJson.getAVLTree();
+    private static BinaryTree binaryTree = BinaryTree.getInstance();
+    private static AVLTree avlTree = AVLTree.getInstance();
     private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\users.json";
     
     public static void insert(String email, String name, String lastName, int age, String password, String photo,
@@ -297,17 +297,5 @@ public class UserJson {
         }
                 
     }
-    
-    public static BinaryTree getBinaryTree() {
-        
-        return binaryTree;
-        
-    }   
-           
+               
 }
-
-
-
-
-
-

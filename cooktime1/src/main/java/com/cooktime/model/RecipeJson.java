@@ -9,7 +9,7 @@ import org.json.simple.parser.JSONParser;
 
 public class RecipeJson {
 
-    private static AVLTree aVLTree = new AVLTree();
+    private static AVLTree aVLTree = AVLTree.getInstance();
     private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\recipes.json";
 
     public static void insert(String name, String author, String type, int portions, int duration,
@@ -173,10 +173,4 @@ public class RecipeJson {
                 
     }
     
-    public static AVLTree getAVLTree() {
-
-        return aVLTree;
-
-    }
-
 }
