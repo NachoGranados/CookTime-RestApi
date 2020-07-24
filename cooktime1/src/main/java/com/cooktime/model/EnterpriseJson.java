@@ -13,7 +13,7 @@ public class EnterpriseJson {
     
     private static SplayTree splayTree = SplayTree.getInstance();
     private static AVLTree avlTree = AVLTree.getInstance();
-    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\enterprises.json";
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\CookTime-RestApi\\cooktime1\\enterprises.json";
     
     public static void insert(String name, String logo, String contact, String schedule,
                               String direction, ArrayList<String> members) throws JSONException,

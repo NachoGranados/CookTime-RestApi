@@ -13,7 +13,7 @@ public class UserJson {
     
     private static BinaryTree binaryTree = BinaryTree.getInstance();
     private static AVLTree avlTree = AVLTree.getInstance();
-    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\users.json";
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\CookTime-RestApi\\cooktime1\\users.json";
     
     public static void insert(String email, String name, String lastName, int age, String password, String photo,
                                boolean chef) throws JSONException, IOException {
@@ -96,6 +96,8 @@ public class UserJson {
         JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
         user.setMyMenuList(myMenuList);
+        
+        user.setLastSort("BubbleSort");
 
         writeJson(newUserJson, email, false);
 
@@ -125,6 +127,8 @@ public class UserJson {
         JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
         user.setMyMenuList(myMenuList);
+        
+        user.setLastSort("QuickSort");
 
         writeJson(newUserJson, email, false);
 
@@ -153,6 +157,8 @@ public class UserJson {
         JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, newMyMenuList, followers, followed, chef);
         
         user.setMyMenuList(newMyMenuList);
+        
+        user.setLastSort("RadixSort");
 
         writeJson(newUserJson, email, false);
 

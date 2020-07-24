@@ -431,5 +431,105 @@ public class AVLTree {
         return matchesList;
 
     }
+    
+    public ArrayList<Recipe> typeFilter(String type) {
+        
+        ArrayList<Recipe> array = new ArrayList<Recipe>();
+        
+        return this.typeFilterAux(array, type, this.root);
+        
+    }
+    
+    private ArrayList<Recipe> typeFilterAux(ArrayList<Recipe> array, String type, NodeAVLTree node) {
+        
+        if (node == null) {
+
+            return null;
+
+        }
+
+        typeFilterAux(array, type, node.getLeft());
+                
+        int result = node.getRecipe().getType().compareTo(type);
+        
+        if (result == 0) {
+            
+            array.add(node.getRecipe());
+            
+        }
+        
+        typeFilterAux(array, type, node.getRight());
+
+        return array;        
+                        
+    }
+    
+    public ArrayList<Recipe> timeFilter(String time) {
+        
+        ArrayList<Recipe> array = new ArrayList<Recipe>();
+        
+        return this.timeFilterAux(array, time, this.root);
+        
+        
+    }
+    
+    private ArrayList<Recipe> timeFilterAux(ArrayList<Recipe> array, String time, NodeAVLTree node) {
+        
+        if (node == null) {
+
+            return null;
+
+        }
+
+        timeFilterAux(array, time, node.getLeft());
+        
+        int result = node.getRecipe().getTime().compareTo(time);
+                
+        if (result == 0) {
+            
+            array.add(node.getRecipe());
+            
+        }
+                
+        timeFilterAux(array, time, node.getRight());
+
+        return array;  
+        
+        
+    }
+    
+    public ArrayList<Recipe> dietTagFilter(String dietTag) {
+        
+        ArrayList<Recipe> array = new ArrayList<Recipe>();
+        
+        return this.dietTagFilterAux(array, dietTag, this.root);
+        
+        
+    }
+    
+    private ArrayList<Recipe> dietTagFilterAux(ArrayList<Recipe> array, String dietTag, NodeAVLTree node) {
+        
+        if (node == null) {
+
+            return null;
+
+        }
+
+        dietTagFilterAux(array, dietTag, node.getLeft());
+        
+        int result = node.getRecipe().getDietTag().compareTo(dietTag);
+        
+        if (result == 0) {
+            
+            array.add(node.getRecipe());
+            
+        }
+        
+        dietTagFilterAux(array, dietTag, node.getRight());
+
+        return array;  
+               
+        
+    }
 
 }  

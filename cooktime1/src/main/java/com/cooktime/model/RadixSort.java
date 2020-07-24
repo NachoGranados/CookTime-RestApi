@@ -62,7 +62,6 @@ public class RadixSort {
         
         int output[] = new int[size];
         int count[] = new int[10]; 
-        //Arrays.fill(count,0); 
   
         for (int i = 0; i < size; i ++) {
             
@@ -84,13 +83,6 @@ public class RadixSort {
         } 
   
         for (int i = 0; i < size; i++) {
-            
-            //System.out.println("element " + output[i]);
-            
-            //sortedList.set(i, getRecipe(array, output[i]));
-            
-            //Recipe aux = array.get(i);
-            //aux.setDifficulty(output[i]);
             
             sortedList.set(i, output[i]);
                         

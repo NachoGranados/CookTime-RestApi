@@ -6,13 +6,14 @@ public class MainQuickSort {
 
     public static void main() {
         
-        /*
+        ArrayList<String> commentary = new ArrayList<String>();
         
-        Recipe r1 = new Recipe("Arroz", "Juan", "Desayuno", 1, 0, "Aperitivo", 10, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 3, 12, 2, 2020);
-        Recipe r2 = new Recipe("Avena", "Juan", "Desayuno", 1, 0, "Aperitivo", 20, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 9, 12, 2, 2020);
-        Recipe r3 = new Recipe("Tortillas", "Juan", "Desayuno", 1, 0, "Aperitivo", 8, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 7, 12, 2, 2020);
-        Recipe r4 = new Recipe("Pasta", "Juan", "Desayuno", 1, 0, "Aperitivo", 2, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 4, 12, 2, 2020);
-        Recipe r5 = new Recipe("Huevo", "Juan", "Desayuno", 1, 0, "Aperitivo", 14, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 1, 12, 2, 2020);
+        Recipe r1 = new Recipe("Arroz", "Juan", "Desayuno", 1, 0, "Aperitivo", 1, "Vegetariana", "photo.png", "Harina", "comer", 100,    18, 12, 2, 2020, commentary); // 4
+        Recipe r2 = new Recipe("Avena", "Juan", "Desayuno", 1, 0, "Aperitivo", 1, "Vegetariana", "photo.png", "Harina", "comer", 100,    14, 12, 2, 2020, commentary); // 3
+        Recipe r3 = new Recipe("Galletas", "Juan", "Desayuno", 1, 0, "Aperitivo", 1, "Vegetariana", "photo.png", "Harina", "comer", 100,    22, 12, 2, 2020, commentary); // 5
+        Recipe r4 = new Recipe("Frijoles", "Juan", "Desayuno", 1, 0, "Aperitivo", 1, "Vegetariana", "photo.png", "Harina", "comer", 100, 1, 12, 2, 2020, commentary);  // 1
+        Recipe r5 = new Recipe("Pasta", "Juan", "Desayuno", 1, 0, "Aperitivo", 1, "Vegetariana", "photo.png", "Harina", "comer", 100,    9, 12, 2, 2020, commentary);  // 2
+        
         
         ArrayList<Recipe> list = new ArrayList<Recipe>();
         
@@ -34,8 +35,6 @@ public class MainQuickSort {
             System.out.println(list.get(i).getName());
             
         }
-        
-        */
         
     }
     

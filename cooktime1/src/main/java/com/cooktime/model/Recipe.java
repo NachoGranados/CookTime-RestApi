@@ -68,9 +68,7 @@ public class Recipe {
         this.commentary = commentary;
         
     }
-    
-    
-
+  
     public String getName() {
         
         return name;

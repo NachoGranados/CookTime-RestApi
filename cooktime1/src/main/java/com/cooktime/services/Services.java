@@ -165,12 +165,6 @@ public class Services {
     public Response postUserBubbleSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
-            
-            //JSONParser parser = new JSONParser();
-            
-            //Object object = parser.parse(myMenuList);
-
-            //JSONArray myMenuListJson = (JSONArray) object;
 
             UserJson.insertBubbleSort(email);
             
@@ -298,6 +292,69 @@ public class Services {
         return Response.ok(avltree.matches(name, size)).build();                              
                             
     }
+    
+    
+    
+    
+    
+    @GET
+    @Path("/getRecipeTypeFilter/{type}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecipeTypeFilter(@PathParam("type") String type) throws JSONException, IOException {
+                
+        return Response.ok(avltree.typeFilter(type)).build();                              
+                            
+    }
+    
+    
+    
+    @GET
+    @Path("/getRecipeTimeFilter/{time}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecipeTimeFilter(@PathParam("time") String time) throws JSONException, IOException {
+        
+        return Response.ok(avltree.timeFilter(time)).build();                                
+                            
+    }
+    
+    
+    
+    @GET
+    @Path("/getRecipeDietTagFilter/{dietTag}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecipeDietTagFilter(@PathParam("dietTag") String dietTag) throws JSONException, IOException {
+        
+        return Response.ok(avltree.dietTagFilter(dietTag)).build();                              
+                            
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
                 
     @POST
     @Path("/postRecipe/")
@@ -314,7 +371,6 @@ public class Services {
                                @QueryParam("ingredients") String ingredients,
                                @QueryParam("steps") String steps,
                                @QueryParam("price") String price,
-                               @QueryParam("calification") String calification,
                                @QueryParam("publication") String publication)                               
                                throws JSONException, IOException {
         

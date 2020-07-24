@@ -13,7 +13,7 @@ public class MainPrueBA {
     
     private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\enterprises.json";
     
-    public static void main(String args[]) throws JSONException, IOException {
+    public static void main() throws JSONException, IOException {
         
         /*
         ArrayList<String> list = new ArrayList<String>();

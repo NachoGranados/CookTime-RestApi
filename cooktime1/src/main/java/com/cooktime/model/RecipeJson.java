@@ -10,7 +10,7 @@ import org.json.simple.parser.JSONParser;
 public class RecipeJson {
 
     private static AVLTree aVLTree = AVLTree.getInstance();
-    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\API2\\cooktime1\\recipes.json";
+    private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\CookTime-RestApi\\cooktime1\\recipes.json";
 
     public static void insert(String name, String author, String type, int portions, int duration,
                               String time, int difficulty, String dietTag, String photo, String ingredients,
@@ -90,7 +90,7 @@ public class RecipeJson {
         writeJson(newRecipeJson, name, false);
 
     }
-        
+    
     private static JSONObject createJsonRecipe(String name, String author, String type, int portions, int duration, String time,
                                                int difficulty, String dietTag, String photo, String ingredients, String steps,
                                                int price, int calification, int day, int month, int year, ArrayList<String> commentary) {
