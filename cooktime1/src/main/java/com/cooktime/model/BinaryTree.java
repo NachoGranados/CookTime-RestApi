@@ -148,7 +148,7 @@ public class BinaryTree {
         
     }
        
-    public void insert1(String email, String name, String lastName, int age, String password, String photo, boolean chef) {
+    public void insert(String email, String name, String lastName, int age, String password, String photo, boolean chef) {
         
         String newPassword = encrypte(password);        
                 
@@ -157,16 +157,7 @@ public class BinaryTree {
         this.root = this.insertAux(newUser, this.root);
         
     }
-    
-    public void insert2(String email, String name, String lastName, int age, String password, String photo,
-                        ArrayList<Recipe> myMenuList, int followers, int followed, boolean chef) {         
-                
-        User newUser = new User(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
         
-        this.root = this.insertAux(newUser, this.root);
-        
-    }
-    
     private NodeBinaryTree insertAux(User newUser, NodeBinaryTree node) {
     
         if (node == null) {
@@ -297,7 +288,7 @@ public class BinaryTree {
       int result = node.getUser().getName().substring(0, endIndex).compareTo(name);
               
       if (result == 0) {
-          
+                    
           matchesList.add(node.getUser());
                     
       }

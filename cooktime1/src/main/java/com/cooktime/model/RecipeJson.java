@@ -14,233 +14,163 @@ public class RecipeJson {
 
     public static void insert(String name, String author, String type, int portions, int duration,
                               String time, int difficulty, String dietTag, String photo, String ingredients,
-                              String steps, int price, int calification, int day, int month, int year) {
+                              String steps, int price, int day, int month, int year) {
 
-        aVLTree.insert1(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                        steps, price, calification, day, month, year);
+        aVLTree.insert(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
+                        steps, price, day, month, year);
+        
+        int calification = 0;
+        ArrayList<String> commentary = new ArrayList<String>();        
 
-        JSONObject newRecipe = new JSONObject();
-
-        newRecipe.put("name", name);
-        newRecipe.put("author", author);
-        newRecipe.put("type", type);
-        newRecipe.put("portions", portions);
-        newRecipe.put("duration", duration);
-        newRecipe.put("time", time);
-        newRecipe.put("difficulty", difficulty);
-        newRecipe.put("dietTag", dietTag);
-        newRecipe.put("ingredients", ingredients);
-        newRecipe.put("steps", steps);
-        newRecipe.put("price", price);
-        newRecipe.put("calification", calification);
-        newRecipe.put("day", day);
-        newRecipe.put("month", month);
-        newRecipe.put("year", year);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson)); 
-
-            JSONArray recipeList = (JSONArray) jsonFile;
-
-            recipeList.add(newRecipe);
-
-            FileWriter file = new FileWriter(directionJson);    
-
-            file.write(recipeList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
+                                                    steps, price, calification, day, month, year, commentary);               
+                
+        writeJson(newRecipeJson, name, true);
 
     }
     
     public static void insertCalification(String name, int newCalification) {         
             
-        Recipe oldRecipe = aVLTree.getRecipe(name);
+        Recipe recipe = aVLTree.getRecipe(name);
         
-        String author = oldRecipe.getAuthor();
-        String type = oldRecipe.getType();
-        int portions = oldRecipe.getPortions();
-        int duration = oldRecipe.getDuration();
-        String time = oldRecipe.getTime();
-        int difficulty = oldRecipe.getDifficulty();
-        String dietTag = oldRecipe.getDietTag();
-        String photo = oldRecipe.getPhoto();
-        String ingredients = oldRecipe.getIngredients();
-        String steps = oldRecipe.getSteps();
-        int price = oldRecipe.getPrice();
-        int calification = oldRecipe.getCalification();
-        int day = oldRecipe.getDay();
-        int month = oldRecipe.getMonth();
-        int year = oldRecipe.getYear();
-        ArrayList<String> commentary = oldRecipe.getCommentary();
+        String author = recipe.getAuthor();
+        String type = recipe.getType();
+        int portions = recipe.getPortions();
+        int duration = recipe.getDuration();
+        String time = recipe.getTime();
+        int difficulty = recipe.getDifficulty();
+        String dietTag = recipe.getDietTag();
+        String photo = recipe.getPhoto();
+        String ingredients = recipe.getIngredients();
+        String steps = recipe.getSteps();
+        int price = recipe.getPrice();
+        int calification = recipe.getCalification()  + newCalification;
+        int day = recipe.getDay();
+        int month = recipe.getMonth();
+        int year = recipe.getYear();
+        ArrayList<String> commentary = recipe.getCommentary();   
+                
+        JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
+                                                    steps, price, calification, day, month, year, commentary); 
+                
+        recipe.setCalification(calification);
         
-        JSONObject oldRecipeJson = new JSONObject();
-        
-        oldRecipeJson.put("name", name);
-        oldRecipeJson.put("author", author);
-        oldRecipeJson.put("type", type);
-        oldRecipeJson.put("portions", portions);
-        oldRecipeJson.put("duration", duration);
-        oldRecipeJson.put("time", time);
-        oldRecipeJson.put("difficulty", difficulty);
-        oldRecipeJson.put("dietTag", dietTag);
-        oldRecipeJson.put("ingredients", ingredients);
-        oldRecipeJson.put("steps", steps);
-        oldRecipeJson.put("price", price);
-        oldRecipeJson.put("calification", calification);
-        oldRecipeJson.put("day", day);
-        oldRecipeJson.put("month", month);
-        oldRecipeJson.put("year", year);
-        oldRecipeJson.put("commentary", commentary);
-        
-        JSONObject newRecipeJson = new JSONObject();
-
-        newRecipeJson.put("name", name);
-        newRecipeJson.put("author", author);
-        newRecipeJson.put("type", type);
-        newRecipeJson.put("portions", portions);
-        newRecipeJson.put("duration", duration);
-        newRecipeJson.put("time", time);
-        newRecipeJson.put("difficulty", difficulty);
-        newRecipeJson.put("dietTag", dietTag);
-        newRecipeJson.put("ingredients", ingredients);
-        newRecipeJson.put("steps", steps);
-        newRecipeJson.put("price", price);
-        newRecipeJson.put("calification", calification + newCalification);
-        newRecipeJson.put("day", day);
-        newRecipeJson.put("month", month);
-        newRecipeJson.put("year", year);
-        newRecipeJson.put("commentary", commentary);
-        
-        aVLTree.remove(name);
-        
-        aVLTree.insert2(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                        steps, price, calification + newCalification, day, month, year, commentary);
-        
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson)); 
-
-            JSONArray recipeList = (JSONArray) jsonFile;
-
-            recipeList.remove(oldRecipeJson);
-
-            recipeList.add(newRecipeJson);
-            
-            FileWriter file = new FileWriter(directionJson);    
-
-            file.write(recipeList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newRecipeJson, name, false);
 
     }
     
     public static void insertCommentary(String name, String newCommentary) {         
             
-        Recipe oldRecipe = aVLTree.getRecipe(name);
+        Recipe recipe = aVLTree.getRecipe(name);
         
-        String author = oldRecipe.getAuthor();
-        String type = oldRecipe.getType();
-        int portions = oldRecipe.getPortions();
-        int duration = oldRecipe.getDuration();
-        String time = oldRecipe.getTime();
-        int difficulty = oldRecipe.getDifficulty();
-        String dietTag = oldRecipe.getDietTag();
-        String photo = oldRecipe.getPhoto();
-        String ingredients = oldRecipe.getIngredients();
-        String steps = oldRecipe.getSteps();
-        int price = oldRecipe.getPrice();
-        int calification = oldRecipe.getCalification();
-        int day = oldRecipe.getDay();
-        int month = oldRecipe.getMonth();
-        int year = oldRecipe.getYear();
-        ArrayList<String> commentary = oldRecipe.getCommentary();
-                
-        JSONObject oldRecipeJson = new JSONObject();
-        
-        oldRecipeJson.put("name", name);
-        oldRecipeJson.put("author", author);
-        oldRecipeJson.put("type", type);
-        oldRecipeJson.put("portions", portions);
-        oldRecipeJson.put("duration", duration);
-        oldRecipeJson.put("time", time);
-        oldRecipeJson.put("difficulty", difficulty);
-        oldRecipeJson.put("dietTag", dietTag);
-        oldRecipeJson.put("ingredients", ingredients);
-        oldRecipeJson.put("steps", steps);
-        oldRecipeJson.put("price", price);
-        oldRecipeJson.put("calification", calification);
-        oldRecipeJson.put("day", day);
-        oldRecipeJson.put("month", month);
-        oldRecipeJson.put("year", year);
-        oldRecipeJson.put("commentary", commentary);
-        
-        JSONObject newRecipeJson = new JSONObject();
+        String author = recipe.getAuthor();
+        String type = recipe.getType();
+        int portions = recipe.getPortions();
+        int duration = recipe.getDuration();
+        String time = recipe.getTime();
+        int difficulty = recipe.getDifficulty();
+        String dietTag = recipe.getDietTag();
+        String photo = recipe.getPhoto();
+        String ingredients = recipe.getIngredients();
+        String steps = recipe.getSteps();
+        int price = recipe.getPrice();
+        int calification = recipe.getCalification();
+        int day = recipe.getDay();
+        int month = recipe.getMonth();
+        int year = recipe.getYear();
+        ArrayList<String> commentary = recipe.getCommentary();               
         
         commentary.add(newCommentary);
+        
+        JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
+                                                    steps, price, calification, day, month, year, commentary); 
+        
+        recipe.setCommentary(commentary);
+                
+        writeJson(newRecipeJson, name, false);
 
-        newRecipeJson.put("name", name);
-        newRecipeJson.put("author", author);
-        newRecipeJson.put("type", type);
-        newRecipeJson.put("portions", portions);
-        newRecipeJson.put("duration", duration);
-        newRecipeJson.put("time", time);
-        newRecipeJson.put("difficulty", difficulty);
-        newRecipeJson.put("dietTag", dietTag);
-        newRecipeJson.put("ingredients", ingredients);
-        newRecipeJson.put("steps", steps);
-        newRecipeJson.put("price", price);
-        newRecipeJson.put("calification", calification);
-        newRecipeJson.put("day", day);
-        newRecipeJson.put("month", month);
-        newRecipeJson.put("year", year);
-        newRecipeJson.put("commentary", commentary);
+    }
         
-        aVLTree.remove(name);
+    private static JSONObject createJsonRecipe(String name, String author, String type, int portions, int duration, String time,
+                                               int difficulty, String dietTag, String photo, String ingredients, String steps,
+                                               int price, int calification, int day, int month, int year, ArrayList<String> commentary) {
         
-        aVLTree.insert2(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                        steps, price, calification, day, month, year, commentary);
+        JSONObject recipeJson = new JSONObject();
+
+        recipeJson.put("name", name);
+        recipeJson.put("author", author);
+        recipeJson.put("type", type);
+        recipeJson.put("portions", portions);
+        recipeJson.put("duration", duration);
+        recipeJson.put("time", time);
+        recipeJson.put("difficulty", difficulty);
+        recipeJson.put("dietTag", dietTag);
+        recipeJson.put("photo", photo);
+        recipeJson.put("ingredients", ingredients);
+        recipeJson.put("steps", steps);
+        recipeJson.put("price", price);
+        recipeJson.put("calification", calification);
+        recipeJson.put("day", day);
+        recipeJson.put("month", month);
+        recipeJson.put("year", year);
+        recipeJson.put("commentary", commentary);
+        
+        return recipeJson;
+        
+    }
+    
+    private static int searchIndex(JSONArray array, String name) {               
+        
+        int index = 0;
+                    
+        for (int i = 0; i < array.size(); i++) {
+
+            JSONObject object = (JSONObject) array.get(i);
+            
+            String objectName = (String) object.get("name");
+            
+            if (objectName.compareTo(name) == 0) {
+                
+                return i;
+
+            }
+
+        }
+        
+        return index;
+        
+    }
+    
+    private static void writeJson(JSONObject newRecipeJson, String name, boolean indicator) {
         
         JSONParser parser = new JSONParser();
 
         try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson)); 
-
+            
+            Object jsonFile = parser.parse(new FileReader(directionJson));
+                                  
             JSONArray recipeList = (JSONArray) jsonFile;
-
-            recipeList.remove(oldRecipeJson);
-
+            
+            if (indicator == false) {
+                
+                recipeList.remove(searchIndex(recipeList, name));
+                
+            }  
+            
             recipeList.add(newRecipeJson);
             
-            FileWriter file = new FileWriter(directionJson);    
-
-            file.write(recipeList.toString());
-            file.flush();
+            FileWriter file = new FileWriter(directionJson);                       
+            
+            file.write(recipeList.toJSONString());   
+            
             file.close();
-
+            
         } catch (Exception e) {
 
             e.printStackTrace();
 
         }
-
+                
     }
     
     public static AVLTree getAVLTree() {

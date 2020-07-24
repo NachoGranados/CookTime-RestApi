@@ -16,7 +16,7 @@ public class Recipe {
     private String ingredients;
     private String steps;
     private int price;
-    private int calification;
+    private int calification = 0;
     private int day;
     private int month;
     private int year;
@@ -24,7 +24,7 @@ public class Recipe {
 
     public Recipe(String name, String author, String type, int portions, int duration,
                   String time, int difficulty, String dietTag, String photo, String ingredients,
-                  String steps, int price, int calification, int day, int month, int year) {
+                  String steps, int price, int day, int month, int year) {
         
         this.name = name;
         this.author = author;
@@ -38,7 +38,6 @@ public class Recipe {
         this.ingredients = ingredients;
         this.steps = steps;
         this.price = price;
-        this.calification = calification;
         this.day = day;
         this.month = month;
         this.year = year;

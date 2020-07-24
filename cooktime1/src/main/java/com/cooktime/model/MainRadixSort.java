@@ -6,6 +6,8 @@ public class MainRadixSort {
 
     public static void main() {
         
+        /*
+        
         Recipe r1 = new Recipe("Arroz", "Juan", "Desayuno", 1, 0, "Aperitivo", 10, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 3, 12, 2, 2020);
         Recipe r2 = new Recipe("Avena", "Juan", "Desayuno", 1, 0, "Aperitivo", 20, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 9, 12, 2, 2020);
         Recipe r3 = new Recipe("Tortillas", "Juan", "Desayuno", 1, 0, "Aperitivo", 8, "Vegetariana", "hola1.png", "Harina", "Comer", 100, 7, 12, 2, 2020);
@@ -19,15 +21,7 @@ public class MainRadixSort {
         list.add(r3);
         list.add(r4);
         list.add(r5);
-        
-        /*
-        list.add(r6);
-        list.add(r7);
-        list.add(r8);
-        list.add(r9);
-        list.add(r10);
-        */
-                
+                        
         RadixSort radix = new RadixSort();                      
         
         int size = list.size();                   
@@ -39,6 +33,8 @@ public class MainRadixSort {
             System.out.println(finalList.get(i).getName());
             
         }        
+        
+        */
         
     }   
        

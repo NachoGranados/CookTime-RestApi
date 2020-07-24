@@ -128,30 +128,17 @@ public class AVLTree {
         
     }         
     
-    public void insert1(String name, String author, String type, int portions, int duration,
+    public void insert(String name, String author, String type, int portions, int duration,
                        String time, int difficulty, String dietTag, String photo, String ingredients,
-                       String steps, int price, int calification, int day, int month, int year) {
+                       String steps, int price, int day, int month, int year) {
 
         Recipe recipe = new Recipe(name, author, type, portions, duration, time, difficulty, dietTag,
-                                   photo, ingredients, steps, price, calification, day, month, year);
+                                   photo, ingredients, steps, price, day, month, year);
 
         this.root = this.insertAux(recipe, this.root);
 
     }
-    
-    public void insert2(String name, String author, String type, int portions, int duration,
-                        String time, int difficulty, String dietTag, String photo, String ingredients,
-                        String steps, int price, int calification, int day, int month, int year,
-                        ArrayList<String> commentary) {
-
-        Recipe recipe = new Recipe(name, author, type, portions, duration, time, difficulty, dietTag,
-                                   photo, ingredients, steps, price, calification, day, month, year,
-                                   commentary);
-
-        this.root = this.insertAux(recipe, this.root);
-
-    }
-    
+        
     private NodeAVLTree insertAux(Recipe recipe, NodeAVLTree node) {  
         
         if (node == null) {

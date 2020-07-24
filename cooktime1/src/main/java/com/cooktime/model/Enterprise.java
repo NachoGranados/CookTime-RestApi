@@ -9,7 +9,10 @@ public class Enterprise {
     private String contact;
     private String schedule;
     private String direction;
+    private int calification = 0;
+    private int followers = 0;
     private ArrayList<String> members = new ArrayList<String>();
+    private ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
 
     public Enterprise(String name, String logo, String contact, String schedule, String direction, ArrayList<String> members) {
         
@@ -20,7 +23,23 @@ public class Enterprise {
         this.direction = direction;
         this.members = members;
         
-    }             
+    }
+    
+    public Enterprise(String name, String logo, String contact, String schedule, String direction, int calification, int followers,
+                      ArrayList<String> members, ArrayList<Recipe> myMenuList) {
+        
+        this.name = name;
+        this.logo = logo;
+        this.contact = contact;
+        this.schedule = schedule;
+        this.direction = direction;
+        this.direction = direction;
+        this.calification = calification;
+        this.followers = followers;
+        this.members = members;
+        this.myMenuList = myMenuList;
+        
+    } 
     
     public String getName() {
         
@@ -93,5 +112,41 @@ public class Enterprise {
         this.members = members;
         
     }
+
+    public int getCalification() {
         
+        return calification;
+        
+    }
+
+    public void setCalification(int calification) {
+        
+        this.calification = calification;
+        
+    }
+
+    public int getFollowers() {
+        
+        return followers;
+        
+    }
+
+    public void setFollowers(int followers) {
+        
+        this.followers = followers;
+        
+    }
+
+    public ArrayList<Recipe> getMyMenuList() {
+        
+        return myMenuList;
+        
+    }
+
+    public void setMyMenuList(ArrayList<Recipe> myMenuList) {
+        
+        this.myMenuList = myMenuList;
+        
+    }
+            
 }

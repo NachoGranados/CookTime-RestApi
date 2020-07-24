@@ -50,11 +50,26 @@ public class Services {
         return Response.status(Response.Status.NOT_FOUND).build();
         
     }
+    
+    @GET
+    @Path("/getUserMyMenuList/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserMyMenuList(@PathParam("email") String email) throws JSONException, IOException {
+                                
+        if (binaryTree.contains(email)) {
+            
+            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                              
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_FOUND).build();
+        
+    }
         
     @GET
-    @Path("/getMatchUsers/{name}")
+    @Path("/getUserMatch/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatchUsers(@PathParam("name") String name) throws JSONException, IOException {
+    public Response getUserMatch(@PathParam("name") String name) throws JSONException, IOException {
         
         int size = name.length();
         
@@ -104,29 +119,14 @@ public class Services {
         
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
-    } 
-    
-    @GET
-    @Path("/getMyMenuList/{email}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMyMenuList(@PathParam("email") String email) throws JSONException, IOException {
-                                
-        if (binaryTree.contains(email)) {
-            
-            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                              
-                                                
-        }
-        
-        return Response.status(Response.Status.NOT_FOUND).build();
-        
-    }
+    }    
         
     @POST
-    @Path("/postMyMenuList/")
+    @Path("/postUserMyMenuList/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postMyMenuList(@QueryParam("email") String email,
-                                   @QueryParam("newRecipe") String newRecipe)
-                                   throws JSONException, IOException, ParseException {
+    public Response postUserMyMenuList(@QueryParam("email") String email,
+                                       @QueryParam("newRecipe") String newRecipe)
+                                       throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
@@ -141,9 +141,9 @@ public class Services {
     }
     
     @POST
-    @Path("/postBubbleSort/")
+    @Path("/postUserBubbleSort/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postBubbleSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
+    public Response postUserBubbleSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
@@ -164,9 +164,9 @@ public class Services {
     }
     
     @POST
-    @Path("/postQuickSort/")
+    @Path("/postUserQuickSort/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postQuickSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
+    public Response postUserQuickSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
@@ -187,9 +187,9 @@ public class Services {
     }
     
     @POST
-    @Path("/postRadixSort/")
+    @Path("/postUserRadixSort/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postRadixSort(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
+    public Response postUserRadixSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
               
         if (binaryTree.contains(email)) {
             
@@ -210,9 +210,9 @@ public class Services {
     }
     
     @POST
-    @Path("/postFollowers/")
+    @Path("/postUserFollowers/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFollowers(@QueryParam("email") String email) throws JSONException, IOException, ParseException {
+    public Response postUserFollowers(@PathParam("email") String email) throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
             
@@ -227,10 +227,9 @@ public class Services {
     }
     
     @POST
-    @Path("/postFollowed/")
+    @Path("/postUserFollowed/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFollowed(@QueryParam("email") String email)
-                                 throws JSONException, IOException, ParseException {
+    public Response postUserFollowed(@PathParam("email") String email) throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
 
@@ -244,6 +243,8 @@ public class Services {
       
     }
     
+    // --------------------------------------------------------------------------------------------------------------------------------
+        
     @GET
     @Path("/getAllRecipes/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -269,37 +270,16 @@ public class Services {
     }
     
     @GET
-    @Path("/getMatchRecipes/{name}")
+    @Path("/getRecipeMatch/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatchRecipes(@PathParam("name") String name) throws JSONException, IOException {
+    public Response getRecipeMatch(@PathParam("name") String name) throws JSONException, IOException {
         
         int size = name.length();
         
         return Response.ok(avltree.matches(name, size)).build();                              
                             
     }
-            
-    /*
-    // Revisar si se usa, sino se borra
-    @DELETE
-    @Path("/deleteRecipe/{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteRecipe(@PathParam("name") String name) throws JSONException, IOException {
-        
-        if (avltree.contains(name)) {
-            
-            avltree.remove(name);
-            
-            return Response.ok().build();                              
-                                                
-        }
-        
-        return Response.status(Response.Status.NOT_FOUND).build();
-        
-    }
-        
-    */
-    
+                
     @POST
     @Path("/postRecipe/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -323,7 +303,6 @@ public class Services {
         int newDuration = Integer.parseInt(duration);
         int newDifficulty = Integer.parseInt(difficulty);
         int newPrice = Integer.parseInt(price);
-        int newCalification = Integer.parseInt(calification);
         
         String newPublication[] = publication.split("/");
         
@@ -333,9 +312,8 @@ public class Services {
           
         if (!avltree.contains(name)) {
             
-            RecipeJson.insert(name, author, type, newPortions, newDuration, time, newDifficulty,
-                              dietTag, photo, ingredients, steps, newPrice, newCalification,
-                              day, month, year);
+            RecipeJson.insert(name, author, type, newPortions, newDuration, time, newDifficulty, dietTag,
+                              photo, ingredients, steps, newPrice, day, month, year);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
                                                 
@@ -346,11 +324,11 @@ public class Services {
     }
     
     @POST
-    @Path("/postCalification/")
+    @Path("/postRecipeCalification/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postCalification(@QueryParam("name") String name,
-                                     @QueryParam("calification") String calification)                               
-                                     throws JSONException, IOException {
+    public Response postRecipeCalification(@QueryParam("name") String name,
+                                           @QueryParam("calification") String calification)                               
+                                           throws JSONException, IOException {
         
         int newCalification = Integer.parseInt(calification);       
           
@@ -367,11 +345,11 @@ public class Services {
     }
     
     @POST
-    @Path("/postCommentary/")
+    @Path("/postRecipeCommentary/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postCommentary(@QueryParam("name") String name,
-                                   @QueryParam("commentary") String commentary)                               
-                                   throws JSONException, IOException {        
+    public Response postRecipeCommentary(@QueryParam("name") String name,
+                                         @QueryParam("commentary") String commentary)                               
+                                         throws JSONException, IOException {        
           
         if (avltree.contains(name)) {
             
@@ -384,6 +362,8 @@ public class Services {
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
     }
+    
+    // --------------------------------------------------------------------------------------------------------------------------------    
     
     @GET
     @Path("/getAllEnterprises/")
@@ -410,9 +390,9 @@ public class Services {
     }
     
     @GET
-    @Path("/getMatchEnterprises/{name}")
+    @Path("/getEnterpriseMatch/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMatchEnterprises(@PathParam("name") String name) throws JSONException, IOException {
+    public Response getEnterpriseMatch(@PathParam("name") String name) throws JSONException, IOException {
         
         int size = name.length();
         
@@ -453,5 +433,62 @@ public class Services {
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();                
       
     }
-
+    
+    @POST
+    @Path("/postEnterpriseCalification/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postEnterpriseCalification(@QueryParam("name") String name,
+                                               @QueryParam("calification") String calification)                               
+                                               throws JSONException, IOException {
+        
+        int newCalification = Integer.parseInt(calification);       
+          
+        if (splayTree.contains(name)) {
+            
+            EnterpriseJson.insertCalification(name, newCalification);
+                    
+            return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                          
+                                                
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postEnterpriseFollowers/{name}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postEnterpriseFollowers(@PathParam("name") String name) throws JSONException, IOException, ParseException {
+                               
+        if (splayTree.contains(name)) {
+            
+            EnterpriseJson.insertFollowers(name);
+            
+            return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name).getFollowers()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    @POST
+    @Path("/postEnterpriseMyMenuList/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postEnterpriseMyMenuList(@QueryParam("name") String name,
+                                             @QueryParam("newRecipe") String newRecipe)
+                                             throws JSONException, IOException, ParseException {
+              
+        if (splayTree.contains(name)) {
+            
+            EnterpriseJson.insertMyMenuList(name, newRecipe);
+            
+            return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
 }

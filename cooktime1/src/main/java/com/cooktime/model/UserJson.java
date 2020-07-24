@@ -18,562 +18,268 @@ public class UserJson {
     public static void insert(String email, String name, String lastName, int age, String password, String photo,
                                boolean chef) throws JSONException, IOException {
         
-        binaryTree.insert1(email, name, lastName, age, password, photo, chef);
+        binaryTree.insert(email, name, lastName, age, password, photo, chef);
         
         ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
-        ArrayList<String> followers = new ArrayList<String>();
-        ArrayList<String> followed = new ArrayList<String>();
+        int followers = 0;
+        int followed = 0;
         
-        JSONObject newUser = new JSONObject();
-    
-        newUser.put("email", email);
-        newUser.put("name", name);
-        newUser.put("lastName", lastName);
-        newUser.put("age", age);
-        newUser.put("password", password);        
-        newUser.put("photo", photo);        
-        newUser.put("myMenuList", myMenuList);
-        newUser.put("followers", followers);
-        newUser.put("followed", followed);
-        newUser.put("chef", chef);
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo,myMenuList, followers, followed, chef);
                 
-        JSONParser parser = new JSONParser();
-                        
-        try {
-            
-            Object jsonFile = parser.parse(new FileReader(directionJson)); 
-            
-            JSONArray userList = (JSONArray) jsonFile;
-            
-            userList.add(newUser);                        
-            
-            FileWriter file = new FileWriter(directionJson);   
-            
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-                                                            
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-            
-        }  
+        writeJson(newUserJson, email, true);
         
     }
     
     public static void insertChef(String email) {
         
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
+
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+                                
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, true);
         
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-        
-        JSONObject oldUserJson = new JSONObject();
+        user.setChef(true);
 
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-                        
-        JSONObject newUserJson = new JSONObject();
-
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", true);
-        
-        binaryTree.remove(email);
-        
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, true);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-            
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        } 
+        writeJson(newUserJson, email, false);
         
     }
     
     public static void insertMyMenuList(String email, String newRecipe) {
 
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();
         
         myMenuList.add(avlTree.getRecipe(newRecipe));
+        
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+        user.setMyMenuList(myMenuList);
 
-        binaryTree.remove(email);
-
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newUserJson, email, false);
 
     }
         
     public static void insertBubbleSort(String email) {
 
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
-
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();
+                
         BubbleSort bubbleSort = new BubbleSort();
         
         bubbleSort.sort(myMenuList);
 
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
-        binaryTree.remove(email);
+        user.setMyMenuList(myMenuList);
 
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newUserJson, email, false);
 
     }
         
     public static void insertQuickSort(String email) {
 
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
-
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();   
+                               
         int minIndex = 0;
         int maxIndex = myMenuList.size() - 1;
         
         QuickSort quickSort = new QuickSort();
         
         quickSort.sort(myMenuList, minIndex, maxIndex);
+        
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+        user.setMyMenuList(myMenuList);
 
-        binaryTree.remove(email);
-
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newUserJson, email, false);
 
     }
         
     public static void insertRadixSort(String email) {
 
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();        
 
         RadixSort radix = new RadixSort();                      
         
         int size = myMenuList.size();                   
         
-        ArrayList<Recipe> newMyMenuList = radix.sort(myMenuList, size);   
+        ArrayList<Recipe> newMyMenuList = radix.sort(myMenuList, size);
         
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", newMyMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, newMyMenuList, followers, followed, chef);
+        
+        user.setMyMenuList(newMyMenuList);
 
-        binaryTree.remove(email);
-
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newUserJson, email, false);
 
     }
         
     public static void insertFollowers(String email) {
         
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
-
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();
+                
         followers ++;
-        
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+                        
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
-        binaryTree.remove(email);
+        user.setFollowers(followers);
 
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
-
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            Object jsonFile = parser.parse(new FileReader(directionJson));
-
-            JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
-            userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
-            file.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+        writeJson(newUserJson, email, false);
 
     }
     
     public static void insertFollowed(String email) {
 
-        User oldUser = binaryTree.getUser(email);
+        User user = binaryTree.getUser(email);
 
-        String name = oldUser.getName();
-        String lastName = oldUser.getLastName();
-        int age = oldUser.getAge();
-        String password = oldUser.getPassword();
-        String photo = oldUser.getPhoto();
-        ArrayList<Recipe> myMenuList = oldUser.getMyMenuList();
-        int followers = oldUser.getFollowers();
-        int followed = oldUser.getFollowed();
-        boolean chef = oldUser.getChef();
-
-        JSONObject oldUserJson = new JSONObject();
-
-        oldUserJson.put("email", email);
-        oldUserJson.put("name", name);
-        oldUserJson.put("lastName", lastName);
-        oldUserJson.put("age", age);
-        oldUserJson.put("password", password);
-        oldUserJson.put("photo", photo);
-        oldUserJson.put("myMenuList", myMenuList);
-        oldUserJson.put("followers", followers);
-        oldUserJson.put("followed", followed);
-        oldUserJson.put("chef", chef);
-
-        JSONObject newUserJson = new JSONObject();
-
+        String name = user.getName();
+        String lastName = user.getLastName();
+        int age = user.getAge();
+        String password = user.getPassword();
+        String photo = user.getPhoto();
+        ArrayList<Recipe> myMenuList = user.getMyMenuList();
+        int followers = user.getFollowers();
+        int followed = user.getFollowed();
+        boolean chef = user.getChef();
+                
         followed ++;
+                        
+        JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
 
-        newUserJson.put("email", email);
-        newUserJson.put("name", name);
-        newUserJson.put("lastName", lastName);
-        newUserJson.put("age", age);
-        newUserJson.put("password", password);
-        newUserJson.put("photo", photo);
-        newUserJson.put("myMenuList", myMenuList);
-        newUserJson.put("followers", followers);
-        newUserJson.put("followed", followed);
-        newUserJson.put("chef", chef);
+        user.setFollowed(followed);
 
-        binaryTree.remove(email);
+        writeJson(newUserJson, email, false);
 
-        binaryTree.insert2(email, name, lastName, age, password, photo, myMenuList, followers, followed, chef);
+    }
+    
+    private static JSONObject createJsonUser(String email, String name, String lastName, int age, String password, String photo,
+                                             ArrayList<Recipe> myMenuList, int followers, int followed, boolean chef) {
+        
+        JSONObject userJson = new JSONObject();
 
+        userJson.put("email", email);
+        userJson.put("name", name);
+        userJson.put("lastName", lastName);
+        userJson.put("age", age);
+        userJson.put("password", password);
+        userJson.put("photo", photo);
+        userJson.put("myMenuList", myMenuList);
+        userJson.put("followers", followers);
+        userJson.put("followed", followed);
+        userJson.put("chef", chef);
+        
+        return userJson;
+        
+    }
+        
+    private static int searchIndex(JSONArray array, String email) {               
+        
+        int index = 0;
+                    
+        for (int i = 0; i < array.size(); i++) {
+
+            JSONObject object = (JSONObject) array.get(i);
+            
+            String objectEmail = (String) object.get("email");
+            
+            if (objectEmail.compareTo(email) == 0) {
+                
+                return i;
+
+            }
+
+        }
+        
+        return index;
+        
+    }
+    
+    private static void writeJson(JSONObject newUserJson, String email, boolean indicator) {
+        
         JSONParser parser = new JSONParser();
 
         try {
-
+            
             Object jsonFile = parser.parse(new FileReader(directionJson));
-
+                                  
             JSONArray userList = (JSONArray) jsonFile;
-
-            userList.remove(oldUserJson);
-
+            
+            if (indicator == false) {
+                
+                userList.remove(searchIndex(userList, email));
+                
+            } 
+            
             userList.add(newUserJson);
-
-            FileWriter file = new FileWriter(directionJson);   
-
-            file.write(userList.toString());
-            file.flush();
+            
+            FileWriter file = new FileWriter(directionJson);                       
+            
+            file.write(userList.toJSONString());   
+            
             file.close();
-
+            
         } catch (Exception e) {
 
             e.printStackTrace();
 
         }
-
+                
     }
-        
+    
     public static BinaryTree getBinaryTree() {
         
         return binaryTree;
