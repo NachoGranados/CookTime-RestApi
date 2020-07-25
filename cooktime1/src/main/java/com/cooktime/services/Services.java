@@ -160,6 +160,81 @@ public class Services {
                             
     } 
     
+       /**
+     * Method that bubblesorts the myMenuList of the user in the tree.
+     * @param email String email of the user.
+     * @return Response.
+     * @throws org.codehaus.jettison.json.JSONException
+     * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
+     */
+    @GET
+    @Path("/getUserBubbleSort/{email}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserBubbleSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+
+            UserJson.insertBubbleSort(email);
+            
+            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    /**
+     * Method that quicksorts the myMenuList of the user in the tree.
+     * @param email String email of the user.
+     * @return Response.
+     * @throws org.codehaus.jettison.json.JSONException
+     * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
+     */
+    @GET
+    @Path("/getUserQuickSort/{email}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserQuickSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+
+            UserJson.insertQuickSort(email);
+            
+            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
+    /**
+     * Method that radixsorts the myMenuList of the user in the tree.
+     * @param email String email of the user.
+     * @return Response.
+     * @throws org.codehaus.jettison.json.JSONException
+     * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
+     */
+    @GET
+    @Path("/getUserRadixSort/{email}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserRadixSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
+              
+        if (binaryTree.contains(email)) {
+            
+            UserJson.insertRadixSort(email);
+            
+            return Response.ok(binaryTree.getUser(email).getMyMenuList()).build();                          
+                                              
+        }
+        
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+      
+    }
+    
     /**
      * Method that posts a user in the tree.
      * @param email String email of the user.
@@ -253,82 +328,7 @@ public class Services {
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
       
     }
-    
-    /**
-     * Method that bubblesorts the myMenuList of the user in the tree.
-     * @param email String email of the user.
-     * @return Response.
-     * @throws org.codehaus.jettison.json.JSONException
-     * @throws java.io.IOException
-     * @throws org.json.simple.parser.ParseException
-     */
-    @POST
-    @Path("/postUserBubbleSort/{email}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response postUserBubbleSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
-              
-        if (binaryTree.contains(email)) {
-
-            UserJson.insertBubbleSort(email);
-            
-            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
-                                              
-        }
-        
-        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-      
-    }
-    
-    /**
-     * Method that quicksorts the myMenuList of the user in the tree.
-     * @param email String email of the user.
-     * @return Response.
-     * @throws org.codehaus.jettison.json.JSONException
-     * @throws java.io.IOException
-     * @throws org.json.simple.parser.ParseException
-     */
-    @POST
-    @Path("/postUserQuickSort/{email}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response postUserQuickSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
-              
-        if (binaryTree.contains(email)) {
-
-            UserJson.insertQuickSort(email);
-            
-            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
-                                              
-        }
-        
-        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-      
-    }
-    
-    /**
-     * Method that radixsorts the myMenuList of the user in the tree.
-     * @param email String email of the user.
-     * @return Response.
-     * @throws org.codehaus.jettison.json.JSONException
-     * @throws java.io.IOException
-     * @throws org.json.simple.parser.ParseException
-     */
-    @POST
-    @Path("/postUserRadixSort/{email}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response postUserRadixSort(@PathParam("email") String email) throws JSONException, IOException, ParseException {
-              
-        if (binaryTree.contains(email)) {
-            
-            UserJson.insertRadixSort(email);
-            
-            return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getMyMenuList()).build();                          
-                                              
-        }
-        
-        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-      
-    }
-    
+       
     /**
      * Method that posts followers in the tree.
      * @param email String email of the user.
