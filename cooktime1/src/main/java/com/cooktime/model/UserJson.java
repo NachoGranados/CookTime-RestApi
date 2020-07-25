@@ -15,8 +15,53 @@ import org.json.simple.parser.JSONParser;
 public class UserJson {
     
     private static final BinaryTree binaryTree = BinaryTree.getInstance();
-    private static final AVLTree avlTree = AVLTree.getInstance();
+    private static final AVLTree aVLTree = AVLTree.getInstance();
     private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\CookTime-RestApi\\cooktime1\\users.json";
+    
+    public static void dataBase() {
+        
+        JSONParser parser = new JSONParser();
+        
+        JSONArray userList = new JSONArray();
+
+        try {
+            
+            Object jsonFile = parser.parse(new FileReader(directionJson));
+                                  
+            userList = (JSONArray) jsonFile;
+                        
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+                
+        for (int i = 0; i < userList.size(); i ++) {
+            
+            JSONObject userJson =  (JSONObject) userList.get(i);
+            
+            String email = (String) userJson.get("email");
+            String name = (String) userJson.get("name");
+            String lastName = (String) userJson.get("lastName");
+            int age = (int) Integer.parseInt(userJson.get("age").toString());
+            String password = (String) userJson.get("password");
+            String photo = (String) userJson.get("photo");
+            ArrayList<Recipe> myMenuList = (ArrayList<Recipe>) userJson.get("myMenuList");
+            int followers = (int) Integer.parseInt(userJson.get("followers").toString());
+            int followed = (int) Integer.parseInt(userJson.get("followed").toString());
+            boolean chef = (boolean) userJson.get("chef");
+                        
+            binaryTree.insert(email, name, lastName, age, password, photo, chef);
+            
+            User user = binaryTree.getUser(email);
+            
+            user.setMyMenuList(myMenuList);
+            user.setFollowers(followers);
+            user.setFollowed(followed);
+            
+        }
+        
+    }
     
     /**
      * Constructor of this class.
@@ -63,7 +108,7 @@ public class UserJson {
         int followers = user.getFollowers();
         int followed = user.getFollowed();
         String followedNames = user.getFollowedNames();
-                                
+                                               
         JSONObject newUserJson = createJsonUser(email, name, lastName, age, password, photo, myMenuList, followers, followed, followedNames, true);
         
         user.setChef(true);
@@ -92,7 +137,7 @@ public class UserJson {
         String followedNames = user.getFollowedNames();
         boolean chef = user.getChef();
         
-        myMenuList.add(avlTree.getRecipe(newRecipe));        
+        myMenuList.add(aVLTree.getRecipe(newRecipe));        
         
         InsertionSort insertionSort = new InsertionSort();
         
@@ -363,6 +408,57 @@ public class UserJson {
                                              ArrayList<Recipe> myMenuList, int followers, int followed, String followedNames,
                                              boolean chef) {
         
+        JSONArray myMenuListJson = new JSONArray();
+        
+        for (int i = 0; i < myMenuList.size(); i ++) {
+            
+            Recipe recipe = aVLTree.getRecipe(myMenuList.get(i).getName());
+                        
+            String author = recipe.getAuthor();
+            String emailRecipe = recipe.getEmail();
+            String type = recipe.getType();
+            int portions = recipe.getPortions();
+            int duration = recipe.getDuration();
+            String time = recipe.getTime();
+            int difficulty = recipe.getDifficulty();
+            String dietTag = recipe.getDietTag();
+            String photoRecipe = recipe.getPhoto();
+            String ingredients = recipe.getIngredients();
+            String steps = recipe.getSteps();
+            int price = recipe.getPrice();
+            int calification = recipe.getCalification();
+            int day = recipe.getDay();
+            int month = recipe.getMonth();
+            int year = recipe.getYear();
+            ArrayList<String> commentary = recipe.getCommentary();
+            
+            JSONObject recipeJson = new JSONObject();
+
+            recipeJson.put("name", name);
+            recipeJson.put("author", author);
+            recipeJson.put("email", emailRecipe);
+            recipeJson.put("type", type);
+            recipeJson.put("portions", portions);
+            recipeJson.put("duration", duration);
+            recipeJson.put("time", time);
+            recipeJson.put("difficulty", difficulty);
+            recipeJson.put("dietTag", dietTag);
+            recipeJson.put("photo", photoRecipe);
+            recipeJson.put("ingredients", ingredients);
+            recipeJson.put("steps", steps);
+            recipeJson.put("price", price);
+            recipeJson.put("calification", calification);
+            recipeJson.put("day", day);
+            recipeJson.put("month", month);
+            recipeJson.put("year", year);
+            recipeJson.put("commentary", commentary);
+            
+            myMenuListJson.add(recipeJson);
+            
+        }
+        
+        
+        
         JSONObject userJson = new JSONObject();
 
         userJson.put("email", email);
@@ -371,7 +467,7 @@ public class UserJson {
         userJson.put("age", age);
         userJson.put("password", password);
         userJson.put("photo", photo);
-        userJson.put("myMenuList", myMenuList);
+        userJson.put("myMenuList", myMenuListJson);
         userJson.put("followers", followers);
         userJson.put("followed", followed);
         userJson.put("followedNames", followedNames);

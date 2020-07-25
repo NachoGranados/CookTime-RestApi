@@ -14,7 +14,7 @@ public class RecipeJson {
 
     private static final AVLTree aVLTree = AVLTree.getInstance();
     private static final String directionJson = "C:\\Users\\ExtremeTech\\Documents\\NetBeansProjects\\CookTime-RestApi\\cooktime1\\recipes.json";
-
+       
     /**
      * Method that inserts recipes in the json file.
      * @param name String name of the recipe.

@@ -30,6 +30,59 @@ public class Services {
     private final AVLTree avltree = AVLTree.getInstance();
     private final SplayTree splayTree = SplayTree.getInstance();
     
+    
+    
+    
+    
+    
+    
+    
+    @GET
+    @Path("/getDataBase/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDataBase() throws JSONException, IOException {
+        
+        UserJson.dataBase();
+        //RecipeJson.dataBase();
+        //EnterpriseJson.dataBase();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                                
+        return Response.ok().build();
+        
+    }    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Method that gets all users of the tree.
      * @return Response.

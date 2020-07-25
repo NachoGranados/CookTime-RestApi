@@ -1,12 +1,30 @@
 package com.cooktime.model;
 
 import java.util.ArrayList;
+import org.codehaus.jettison.json.JSONException;
 
 public class MainUserMatches {
     
     
     
-    public static void main(String args[]) {        
+    public static void main(String args[]) throws JSONException {  
+        
+        //UserJson.dataBase();
+        
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("Nacho1");
+        list.add("Nacho2");               
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         
         BinaryTree binaryTree = BinaryTree.getInstance();
         
