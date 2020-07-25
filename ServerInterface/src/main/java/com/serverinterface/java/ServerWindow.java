@@ -129,7 +129,7 @@ public class ServerWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Recipe", "Name", "Author", "Type", "Portions", "Duration", "Time", "Difficulty", "Diet Tag", "Photo", "Ingredients", "Steps", "Price", "Calification", "Day", "Month", "Year", "Commentaries"
+                "Recipe", "Name", "Author", "Type", "Portions", "Duration", "Time", "Difficulty", "Diet Tag", "Photo", "Ingredients", "Steps", "Price", "Qualification", "Day", "Month", "Year", "Commentaries"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -176,7 +176,7 @@ public class ServerWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Enterprise", "Name", "Logo", "Contact", "Schedule", "Direction", "Members", "Followers", "Calification", "My Menu List"
+                "Enterprise", "Name", "Logo", "Contact", "Schedule", "Direction", "Qualification", "Followers", "Members", "My Menu List"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -448,7 +448,7 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[10] = (String) object.get("ingredients");
         rowData[11] = (String) object.get("steps");
         rowData[12] = (String) object.get("price").toString();
-        rowData[13] = (String) object.get("calification").toString();
+        rowData[13] = (String) object.get("qualification").toString();
         rowData[14] = (String) object.get("day").toString();
         rowData[15] = (String) object.get("month").toString();
         rowData[16] = (String) object.get("year").toString();
@@ -462,7 +462,7 @@ public class ServerWindow extends javax.swing.JFrame {
                 
         DefaultTableModel model = (DefaultTableModel) tableEnterprises.getModel();
 
-        Object rowData[] = new Object[7];
+        Object rowData[] = new Object[10];
 
         rowData[0] = number;
         rowData[1] = (String) object.get("name");
@@ -470,7 +470,10 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[3] = (String) object.get("contact");
         rowData[4] = (String) object.get("schedule");
         rowData[5] = (String) object.get("direction");
-        rowData[6] = (String) object.get("members").toString();
+        rowData[6] = (String) object.get("qualification").toString();
+        rowData[7] = (String) object.get("followers").toString();
+        rowData[8] = (String) object.get("members").toString();
+        rowData[9] = (String) object.get("myMenuList").toString();
         
         model.addRow(rowData);
             

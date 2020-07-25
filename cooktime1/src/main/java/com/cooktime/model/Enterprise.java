@@ -57,7 +57,6 @@ public class Enterprise {
         this.contact = contact;
         this.schedule = schedule;
         this.direction = direction;
-        this.direction = direction;
         this.qualification = qualification;
         this.followers = followers;
         this.members = members;

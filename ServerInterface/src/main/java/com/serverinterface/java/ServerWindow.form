@@ -288,7 +288,7 @@
                     <Column editable="false" title="Ingredients" type="java.lang.Object"/>
                     <Column editable="false" title="Steps" type="java.lang.Object"/>
                     <Column editable="false" title="Price" type="java.lang.Object"/>
-                    <Column editable="false" title="Calification" type="java.lang.Object"/>
+                    <Column editable="false" title="Qualification" type="java.lang.Object"/>
                     <Column editable="false" title="Day" type="java.lang.Object"/>
                     <Column editable="false" title="Month" type="java.lang.Object"/>
                     <Column editable="false" title="Year" type="java.lang.Object"/>
@@ -421,9 +421,9 @@
                     <Column editable="false" title="Contact" type="java.lang.Object"/>
                     <Column editable="false" title="Schedule" type="java.lang.Object"/>
                     <Column editable="false" title="Direction" type="java.lang.Object"/>
-                    <Column editable="false" title="Members" type="java.lang.Object"/>
+                    <Column editable="false" title="Qualification" type="java.lang.Object"/>
                     <Column editable="false" title="Followers" type="java.lang.Object"/>
-                    <Column editable="false" title="Calification" type="java.lang.Object"/>
+                    <Column editable="false" title="Members" type="java.lang.Object"/>
                     <Column editable="false" title="My Menu List" type="java.lang.Object"/>
                   </Table>
                 </Property>
