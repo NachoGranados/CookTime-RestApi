@@ -357,7 +357,7 @@ public class Services {
     /**
      * Method that posts followeed in the tree.
      * @param email String email of the user.
-     * @param follwedEmail String follwedEmail of the followed.
+     * @param followedEmail String follwedEmail of the followed.
      * @return Response.
      * @throws org.codehaus.jettison.json.JSONException
      * @throws java.io.IOException
@@ -367,12 +367,12 @@ public class Services {
     @Path("/postUserFollowed/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postUserFollowed(@QueryParam("email") String email,
-                                     @QueryParam("follwedEmail") String follwedEmail)
+                                     @QueryParam("followedEmail") String followedEmail)
                                      throws JSONException, IOException, ParseException {
                                
         if (binaryTree.contains(email)) {
 
-            UserJson.insertFollowed(email, follwedEmail);
+            UserJson.insertFollowed(email, followedEmail);
             
             return Response.status(Response.Status.CREATED).entity(binaryTree.getUser(email).getFollowed()).build();                          
                                               
@@ -524,12 +524,18 @@ public class Services {
                                @QueryParam("publication") String publication)                               
                                throws JSONException, IOException {
         
+        String newAuthor[] = author.split("/");
+        
         int newPortions = Integer.parseInt(portions);
         int newDuration = Integer.parseInt(duration);
         int newDifficulty = Integer.parseInt(difficulty);
         int newPrice = Integer.parseInt(price);
         
-        String newPublication[] = publication.split("/");
+        // Juan/@Juan
+        
+        String slice = publication.substring(0,10);
+        
+        String newPublication[] = slice.split("/");
         
         int day = Integer.parseInt(newPublication[0]);
         int month = Integer.parseInt(newPublication[1]);
@@ -537,7 +543,7 @@ public class Services {
           
         if (!avltree.contains(name)) {
             
-            RecipeJson.insert(name, author, type, newPortions, newDuration, time, newDifficulty, dietTag,
+            RecipeJson.insert(name, newAuthor, type, newPortions, newDuration, time, newDifficulty, dietTag,
                               photo, ingredients, steps, newPrice, day, month, year);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
