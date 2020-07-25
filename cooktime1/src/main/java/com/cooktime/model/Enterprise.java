@@ -12,7 +12,7 @@ public class Enterprise {
     private String contact;
     private String schedule;
     private String direction;
-    private int calification = 0;
+    private int qualification = 0;
     private int followers = 0;
     private ArrayList<String> members = new ArrayList<String>();
     private ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
@@ -44,12 +44,12 @@ public class Enterprise {
      * @param contact String contact of the enterprise.
      * @param schedule String schedule of the enterprise.
      * @param direction String direction of the enterprise.
-     * @param calification int calification of the enterprise.
+     * @param qualification int qualification of the enterprise.
      * @param followers int followers of the enterprise.
      * @param members ArrayList members of the enterprise.
      * @param myMenuList ArrayList myMenuList list of recipes.
      */
-    public Enterprise(String name, String logo, String contact, String schedule, String direction, int calification, int followers,
+    public Enterprise(String name, String logo, String contact, String schedule, String direction, int qualification, int followers,
                       ArrayList<String> members, ArrayList<Recipe> myMenuList) {
         
         this.name = name;
@@ -58,7 +58,7 @@ public class Enterprise {
         this.schedule = schedule;
         this.direction = direction;
         this.direction = direction;
-        this.calification = calification;
+        this.qualification = qualification;
         this.followers = followers;
         this.members = members;
         this.myMenuList = myMenuList;
@@ -136,18 +136,18 @@ public class Enterprise {
         
     }
 
-    public int getCalification() {
+    public int getQualification() {
         
-        return calification;
-        
-    }
-
-    public void setCalification(int calification) {
-        
-        this.calification = calification;
+        return qualification;
         
     }
 
+    public void setQualification(int qualification) {
+        
+        this.qualification = qualification;
+        
+    }
+    
     public int getFollowers() {
         
         return followers;

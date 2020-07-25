@@ -176,11 +176,11 @@ public class ServerWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Enterprise", "Name", "Logo", "Contact", "Schedule", "Direction", "Members"
+                "Enterprise", "Name", "Logo", "Contact", "Schedule", "Direction", "Members", "Followers", "Calification", "My Menu List"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,6 +197,9 @@ public class ServerWindow extends javax.swing.JFrame {
             tableEnterprises.getColumnModel().getColumn(4).setResizable(false);
             tableEnterprises.getColumnModel().getColumn(5).setResizable(false);
             tableEnterprises.getColumnModel().getColumn(6).setResizable(false);
+            tableEnterprises.getColumnModel().getColumn(7).setResizable(false);
+            tableEnterprises.getColumnModel().getColumn(8).setResizable(false);
+            tableEnterprises.getColumnModel().getColumn(9).setResizable(false);
         }
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);

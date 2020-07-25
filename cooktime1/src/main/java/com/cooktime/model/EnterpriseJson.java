@@ -35,22 +35,22 @@ public class EnterpriseJson {
         
         splayTree.insert(name, logo, contact, schedule, direction, members);
         
-        int calification = 0;
+        int qualification = 0;
         int followers = 0;
         ArrayList<Recipe> myMenuList = new ArrayList<Recipe>();
         
-        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, calification, followers, members, myMenuList);
+        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, qualification, followers, members, myMenuList);
                 
         writeJson(newEnterpriseJson, name, true);
                 
-    }   
+    }  
     
     /**
-     * Method that inserts califications in the json file.
+     * Method that inserts qualifications in the json file.
      * @param name String name of the enterprise.
-     * @param newCalification int newCalification of the enterprise.
+     * @param newQualification int newQualification of the enterprise.
      */
-    public static void insertCalification(String name, int newCalification) {         
+    public static void insertQualification(String name, int newQualification) {         
             
         Enterprise enterprise = splayTree.getEnterprise(name);
         
@@ -58,14 +58,14 @@ public class EnterpriseJson {
         String contact = enterprise.getContact();
         String schedule = enterprise.getSchedule();
         String direction = enterprise.getDirection();
-        int calification = enterprise.getCalification();
+        int qualification = enterprise.getQualification();
         int followers = enterprise.getFollowers();
         ArrayList<String> members = enterprise.getMembers();
         ArrayList<Recipe> myMenuList = enterprise.getMyMenuList();
                 
-        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, calification + newCalification, followers, members, myMenuList);
+        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, qualification + newQualification, followers, members, myMenuList);
                         
-        enterprise.setCalification(calification + newCalification);
+        enterprise.setQualification(qualification + newQualification);
         
         writeJson(newEnterpriseJson, name, false);
 
@@ -83,14 +83,14 @@ public class EnterpriseJson {
         String contact = enterprise.getContact();
         String schedule = enterprise.getSchedule();
         String direction = enterprise.getDirection();
-        int calification = enterprise.getCalification();
+        int qualification = enterprise.getQualification();
         int followers = enterprise.getFollowers();
         ArrayList<String> members = enterprise.getMembers();
         ArrayList<Recipe> myMenuList = enterprise.getMyMenuList();
                 
         followers ++;
         
-        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, calification, followers, members, myMenuList);
+        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, qualification, followers, members, myMenuList);
                 
         enterprise.setFollowers(followers);
 
@@ -111,14 +111,14 @@ public class EnterpriseJson {
         String contact = enterprise.getContact();
         String schedule = enterprise.getSchedule();
         String direction = enterprise.getDirection();
-        int calification = enterprise.getCalification();
+        int qualification = enterprise.getQualification();
         int followers = enterprise.getFollowers();
         ArrayList<String> members = enterprise.getMembers();
         ArrayList<Recipe> myMenuList = enterprise.getMyMenuList();
                 
         myMenuList.add(avlTree.getRecipe(newRecipe));
         
-        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, calification, followers, members, myMenuList);
+        JSONObject newEnterpriseJson = createJsonEnterprise(name, logo, contact, schedule, direction, qualification, followers, members, myMenuList);
         
         enterprise.setMyMenuList(myMenuList);
         
@@ -133,13 +133,13 @@ public class EnterpriseJson {
      * @param contact String contact of the enterprise.
      * @param schedule String schedule of the enterprise.
      * @param direction String direction of the enterprise.
-     * @param calification int calification of the enterprise.
+     * @param qualification int qualification of the enterprise.
      * @param followers int followers of the enterprise.
      * @param members ArrayList<String> members of the enterprise.
      * @param myMenuList ArrayList<Recipe> myMenuList of the enterprise.
      * @return JSONObject
      */
-    private static JSONObject createJsonEnterprise(String name, String logo, String contact, String schedule, String direction, int calification, int followers,
+    private static JSONObject createJsonEnterprise(String name, String logo, String contact, String schedule, String direction, int qualification, int followers,
                                                    ArrayList<String> members, ArrayList<Recipe> myMenuList) {
         
         JSONObject enterpriseJson = new JSONObject();
@@ -149,7 +149,7 @@ public class EnterpriseJson {
         enterpriseJson.put("contact", contact);
         enterpriseJson.put("schedule", schedule);
         enterpriseJson.put("direction", direction);        
-        enterpriseJson.put("calification", calification);
+        enterpriseJson.put("qualification", qualification);
         enterpriseJson.put("followers", followers);        
         enterpriseJson.put("members", members);        
         enterpriseJson.put("myMenuList", myMenuList);

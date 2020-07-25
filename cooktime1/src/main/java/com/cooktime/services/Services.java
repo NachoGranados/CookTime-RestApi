@@ -140,7 +140,25 @@ public class Services {
                 
         return Response.ok(binaryTree.getUser(email).getFollowedNames()).build();                              
                             
-    }       
+    }    
+    
+    @GET
+    @Path("/getUserFollowers/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserFollowers(@PathParam("email") String email) throws JSONException, IOException {
+                
+        return Response.ok(binaryTree.getUser(email).getFollowers()).build();                              
+                            
+    } 
+    
+    @GET
+    @Path("/getUserFollowed/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserFollowed(@PathParam("email") String email) throws JSONException, IOException {
+                
+        return Response.ok(binaryTree.getUser(email).getFollowed()).build();                              
+                            
+    } 
     
     /**
      * Method that posts a user in the tree.
@@ -531,25 +549,25 @@ public class Services {
     }
     
     /**
-     * Method that posts califications in the tree.
+     * Method that posts qualifications in the tree.
      * @param name String name of the recipe.
-     * @param calification String calification of the recipe.
+     * @param qualification String qualification of the recipe.
      * @return Response.
      * @throws org.codehaus.jettison.json.JSONException
      * @throws java.io.IOException
      */
     @POST
-    @Path("/postRecipeCalification/")
+    @Path("/postRecipeQualification/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postRecipeCalification(@QueryParam("name") String name,
-                                           @QueryParam("calification") String calification)                               
+    public Response postRecipeQualification(@QueryParam("name") String name,
+                                           @QueryParam("qualification") String qualification)                               
                                            throws JSONException, IOException {
         
-        int newCalification = Integer.parseInt(calification);       
+        int newQualification = Integer.parseInt(qualification);       
           
         if (avltree.contains(name)) {
             
-            RecipeJson.insertCalification(name, newCalification);
+            RecipeJson.insertQualification(name, newQualification);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
                                                 
@@ -691,25 +709,25 @@ public class Services {
     }
     
     /**
-     * Method that posts califications in the tree.
+     * Method that posts qualifications in the tree.
      * @param name String name of the enterprise.
-     * @param calification String calification of the enterprise.
+     * @param qualification String qualification of the enterprise.
      * @return Response.
      * @throws org.codehaus.jettison.json.JSONException
      * @throws java.io.IOException
      */
     @POST
-    @Path("/postEnterpriseCalification/")
+    @Path("/postEnterpriseQualification/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postEnterpriseCalification(@QueryParam("name") String name,
-                                               @QueryParam("calification") String calification)                               
+    public Response postEnterpriseQualification(@QueryParam("name") String name,
+                                               @QueryParam("qualification") String qualification)                               
                                                throws JSONException, IOException {
         
-        int newCalification = Integer.parseInt(calification);       
+        int newQualification = Integer.parseInt(qualification);       
           
         if (splayTree.contains(name)) {
             
-            EnterpriseJson.insertCalification(name, newCalification);
+            EnterpriseJson.insertQualification(name, newQualification);
                     
             return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                          
                                                 

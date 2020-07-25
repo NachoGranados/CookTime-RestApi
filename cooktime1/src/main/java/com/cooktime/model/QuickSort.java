@@ -18,18 +18,18 @@ public class QuickSort {
         int i = minIndex;
         int j = maxIndex;
         
-        float pivot = array.get(minIndex + (maxIndex - minIndex) / 2).getCalification();
+        float pivot = array.get(minIndex + (maxIndex - minIndex) / 2).getQualification();
         Recipe aux;
         
         while (i <= j) {
             
-            while (array.get(i).getCalification() < pivot) {
+            while (array.get(i).getQualification()< pivot) {
                 
                 i ++;
                 
             }
             
-            while (array.get(j).getCalification() > pivot) {
+            while (array.get(j).getQualification() > pivot) {
                 
                 j --;
                 
