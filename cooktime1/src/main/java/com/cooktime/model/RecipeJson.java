@@ -40,22 +40,22 @@ public class RecipeJson {
         aVLTree.insert(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
                        steps, price, day, month, year);
         
-        int qualification = 0;
+        int calification = 0;
         ArrayList<String> commentary = new ArrayList<String>();                 
 
         JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                                                    steps, price, qualification, day, month, year, commentary);    
+                                                    steps, price, calification, day, month, year, commentary);    
                                
         writeJson(newRecipeJson, name, true);
 
     }
     
     /**
-     * Method that inserts qualifications in the json file.
+     * Method that inserts califications in the json file.
      * @param name String name of the recipe.
-     * @param newQualification int newQualification of the recipe.
+     * @param newCalification int newCalification of the recipe.
      */
-    public static void insertQualification(String name, int newQualification) {         
+    public static void insertCalification(String name, int newCalification) {         
             
         Recipe recipe = aVLTree.getRecipe(name);
         
@@ -70,23 +70,23 @@ public class RecipeJson {
         String ingredients = recipe.getIngredients();
         String steps = recipe.getSteps();
         int price = recipe.getPrice();
-        int qualification = recipe.getQualification()  + newQualification;
+        int calification = recipe.getCalification()  + newCalification;
         int day = recipe.getDay();
         int month = recipe.getMonth();
         int year = recipe.getYear();
         ArrayList<String> commentary = recipe.getCommentary();   
                 
         JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                                                    steps, price, qualification, day, month, year, commentary); 
+                                                    steps, price, calification, day, month, year, commentary); 
                 
-        recipe.setQualification(qualification);
+        recipe.setCalification(calification);
         
         writeJson(newRecipeJson, name, false);
 
     }
     
     /**
-     * Method that inserts qualifications in the json file.
+     * Method that inserts califications in the json file.
      * @param name String name of the recipe.
      * @param newCommentary String newCommentary of the recipe.
      */
@@ -105,7 +105,7 @@ public class RecipeJson {
         String ingredients = recipe.getIngredients();
         String steps = recipe.getSteps();
         int price = recipe.getPrice();
-        int qualification = recipe.getQualification();
+        int calification = recipe.getCalification();
         int day = recipe.getDay();
         int month = recipe.getMonth();
         int year = recipe.getYear();
@@ -114,7 +114,7 @@ public class RecipeJson {
         commentary.add(newCommentary);
         
         JSONObject newRecipeJson = createJsonRecipe(name, author, type, portions, duration, time, difficulty, dietTag, photo, ingredients,
-                                                    steps, price, qualification, day, month, year, commentary); 
+                                                    steps, price, calification, day, month, year, commentary); 
         
         recipe.setCommentary(commentary);
                 
@@ -136,7 +136,7 @@ public class RecipeJson {
      * @param ingredients String ingredients of the recipe.
      * @param steps String steps of the recipe.
      * @param price int price of the recipe.
-     * @param qualification int qualification of the recipe.
+     * @param calification int calification of the recipe.
      * @param day int day of the recipe.
      * @param month int month of the recipe.
      * @param year  int  year of the recipe.
@@ -145,7 +145,7 @@ public class RecipeJson {
      */
     private static JSONObject createJsonRecipe(String name, String author, String type, int portions, int duration, String time,
                                                int difficulty, String dietTag, String photo, String ingredients, String steps,
-                                               int price, int qualification, int day, int month, int year, ArrayList<String> commentary) {
+                                               int price, int calification, int day, int month, int year, ArrayList<String> commentary) {
         
         JSONObject recipeJson = new JSONObject();
 
@@ -161,7 +161,7 @@ public class RecipeJson {
         recipeJson.put("ingredients", ingredients);
         recipeJson.put("steps", steps);
         recipeJson.put("price", price);
-        recipeJson.put("qualification", qualification);
+        recipeJson.put("calification", calification);
         recipeJson.put("day", day);
         recipeJson.put("month", month);
         recipeJson.put("year", year);

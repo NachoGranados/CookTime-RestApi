@@ -39,7 +39,7 @@ public class InsertionSort {
 
                 aux = array.get(i);
 
-                for (int j = i - 1; j >= 0 && array.get(j).getQualification() > aux.getQualification(); j--) {
+                for (int j = i - 1; j >= 0 && array.get(j).getCalification() > aux.getCalification(); j--) {
 
                     array.set(j + 1, array.get(j));
                     array.set(j, aux);

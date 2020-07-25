@@ -448,7 +448,7 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[10] = (String) object.get("ingredients");
         rowData[11] = (String) object.get("steps");
         rowData[12] = (String) object.get("price").toString();
-        rowData[13] = (String) object.get("qualification").toString();
+        rowData[13] = (String) object.get("calification").toString();
         rowData[14] = (String) object.get("day").toString();
         rowData[15] = (String) object.get("month").toString();
         rowData[16] = (String) object.get("year").toString();
@@ -470,7 +470,7 @@ public class ServerWindow extends javax.swing.JFrame {
         rowData[3] = (String) object.get("contact");
         rowData[4] = (String) object.get("schedule");
         rowData[5] = (String) object.get("direction");
-        rowData[6] = (String) object.get("qualification").toString();
+        rowData[6] = (String) object.get("calification").toString();
         rowData[7] = (String) object.get("followers").toString();
         rowData[8] = (String) object.get("members").toString();
         rowData[9] = (String) object.get("myMenuList").toString();

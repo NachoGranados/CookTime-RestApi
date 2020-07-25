@@ -19,7 +19,7 @@ public class Recipe {
     private String ingredients;
     private String steps;
     private int price;
-    private int qualification = 0;
+    private int calification = 0;
     private int day;
     private int month;
     private int year;
@@ -79,7 +79,7 @@ public class Recipe {
      * @param ingredients String ingredients of the recipe.
      * @param steps String steps of the recipe.
      * @param price int price of the recipe.
-     * @param qualification int qualification of the recipe.
+     * @param calification int calification of the recipe.
      * @param day int day of the recipe.
      * @param month int month of the recipe.
      * @param year  int  year of the recipe.
@@ -87,7 +87,7 @@ public class Recipe {
      */
     public Recipe(String name, String author, String type, int portions, int duration,
                   String time, int difficulty, String dietTag, String photo, String ingredients,
-                  String steps, int price, int qualification, int day, int month, int year,
+                  String steps, int price, int calification, int day, int month, int year,
                   ArrayList<String> commentary) {
         
         this.name = name;
@@ -102,7 +102,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.steps = steps;
         this.price = price;
-        this.qualification = qualification;
+        this.calification = calification;
         this.day = day;
         this.month = month;
         this.year = year;
@@ -253,15 +253,15 @@ public class Recipe {
         
     }
 
-    public int getQualification() {
+    public int getCalification() {
         
-        return qualification;
+        return calification;
         
     }
 
-    public void setQualification(int qualification) {
+    public void setCalification(int calification) {
         
-        this.qualification = qualification;
+        this.calification = calification;
         
     }
 

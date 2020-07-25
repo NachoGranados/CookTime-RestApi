@@ -549,25 +549,25 @@ public class Services {
     }
     
     /**
-     * Method that posts qualifications in the tree.
+     * Method that posts califications in the tree.
      * @param name String name of the recipe.
-     * @param qualification String qualification of the recipe.
+     * @param calification String calification of the recipe.
      * @return Response.
      * @throws org.codehaus.jettison.json.JSONException
      * @throws java.io.IOException
      */
     @POST
-    @Path("/postRecipeQualification/")
+    @Path("/postRecipeCalification/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postRecipeQualification(@QueryParam("name") String name,
-                                           @QueryParam("qualification") String qualification)                               
+    public Response postRecipeCalification(@QueryParam("name") String name,
+                                           @QueryParam("calification") String calification)                               
                                            throws JSONException, IOException {
         
-        int newQualification = Integer.parseInt(qualification);       
+        int newCalification = Integer.parseInt(calification);       
           
         if (avltree.contains(name)) {
             
-            RecipeJson.insertQualification(name, newQualification);
+            RecipeJson.insertCalification(name, newCalification);
                     
             return Response.status(Response.Status.CREATED).entity(avltree.getRecipe(name)).build();                          
                                                 
@@ -709,25 +709,25 @@ public class Services {
     }
     
     /**
-     * Method that posts qualifications in the tree.
+     * Method that posts califications in the tree.
      * @param name String name of the enterprise.
-     * @param qualification String qualification of the enterprise.
+     * @param calification String calification of the enterprise.
      * @return Response.
      * @throws org.codehaus.jettison.json.JSONException
      * @throws java.io.IOException
      */
     @POST
-    @Path("/postEnterpriseQualification/")
+    @Path("/postEnterpriseCalification/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postEnterpriseQualification(@QueryParam("name") String name,
-                                               @QueryParam("qualification") String qualification)                               
+    public Response postEnterpriseCalification(@QueryParam("name") String name,
+                                               @QueryParam("calification") String calification)                               
                                                throws JSONException, IOException {
         
-        int newQualification = Integer.parseInt(qualification);       
+        int newCalification = Integer.parseInt(calification);       
           
         if (splayTree.contains(name)) {
             
-            EnterpriseJson.insertQualification(name, newQualification);
+            EnterpriseJson.insertCalification(name, newCalification);
                     
             return Response.status(Response.Status.CREATED).entity(splayTree.getEnterprise(name)).build();                          
                                                 
